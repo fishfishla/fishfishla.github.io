@@ -38,7 +38,7 @@ namespace prjCooking.ViewModel
             set { this.party.f主辦人 = value; }
         }
         [Required(ErrorMessage = "必填欄位")]
-        [StringLength(20, ErrorMessage = "字數需小於20個字")]
+        [StringLength(9, ErrorMessage = "字數需小於等於9個字")]
         [DisplayName("聚會名稱")]
 
         public string f聚會名稱

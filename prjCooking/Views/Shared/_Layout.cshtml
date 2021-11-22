@@ -79,16 +79,16 @@
             <!-- 這是一組靠左側的選單 -->
             <ul class="navbar-nav mr-auto">
                 <!-- active在視覺上設計底色不同,表示目前在這個位置,如果不需要則刪除  -->
-                <li class="nav-item">
+                @*<li class="nav-item">
                     @Html.ActionLink("關於我們", "", "", new { area = "" }, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
                     @Html.ActionLink("新手上路", "", "", new { area = "" }, new { @class = "nav-link" })
-                </li>
+                </li>*@
                 <li>
                     <form method="get" action="~/Home/Index">
                         <input type="text" class="form-control mr-1 search1" style="width:200px" placeholder="關鍵字" name="txtSearch"/>
-                        <input type="submit" value="Search" class="btn btn-light nav-link rounded-pill search1" />
+                        <input type="submit" value="搜尋" class="btn btn-sm btn-light nav-link search1" />
                     </form>
                 </li>
                 
