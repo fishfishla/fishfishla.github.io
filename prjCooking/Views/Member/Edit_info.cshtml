@@ -1,0 +1,127 @@
+﻿
+@using prjCooking.Models
+@model prjCooking.ViewModel.C個人頁面ViewModel
+
+@{
+    ViewBag.Title = "編輯個人資訊";
+}
+<!-- 一小塊空白 -->
+<section class="service-wrapper py-7">
+    <div class="service-tag py-5 bg-white">
+    </div>
+</section>
+
+
+@using (Html.BeginForm("Edit_info", "Member",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+    @Html.AntiForgeryToken()
+
+    <aside class="container ">
+        <aside class="row">
+            <aside class="col-md-6 offset-md-3 text-center bg-light">
+
+                <!-- 開始編輯資訊 -->
+                <div class="form-horizontal row">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <aside class=" col-12 text-left">
+                        <br />
+                        <h4 class="text-info">編輯個人資訊</h4>
+                        <hr />
+                        <!--照片-->
+                        <div class="form-group">
+                            <br />
+                            <img src="~/Image/@Model.f會員照片" id="imgpreview" class="rounded-circle " width="170" height="170" />
+                            <br /><br />
+                            <input type="file" name="image" id="fileupload" accept="image/jpeg, image/gif, image/png" onchange="openFile()" multiple />
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.f會員Id, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.f會員Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.f自我介紹, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.f自我介紹, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f自我介紹, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.f會員電話, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.f會員電話, new { htmlAttributes = new { @class = "form-control", style = "width:50%" } })
+                            @Html.ValidationMessageFor(model => model.f會員電話, "", new { @class = "text-danger" })
+
+                        </div>
+                    </aside>
+                    <aside class="col-12 text-center">
+                        <div class="form-group">
+                            @Html.ActionLink("返回個人頁面", "Show個人頁面", "Member", new { id = @Model.f會員Id }, new { Class = "btn btn-outline-info" })
+
+                            <input type="button" value="送出" class="btn btn-outline-info" data-toggle="modal" data-target="#modalone" />
+                            <div class="modal" id="modalone">
+                                <div class="modal-md modal-dialog modal-dialog-scrollable">
+
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <img src="~/Image/heart.svg" class="modal-title">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>確定要修改嗎?</p>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="button" value="取消" class="btn btn-sm btn-outline-info" data-dismiss="modal">
+                                            @*@Html.ActionLink("確定", "Edit_info1", "Member", new { id = @Model.f會員Id }, new { Class = "btn btn-sm btn-outline-info", @type= "submit" })*@
+                                            <input type="submit" value="確定" class="btn btn-sm btn-outline-info">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 編輯資訊結束 -->
+                        </div>
+                    </aside>
+                </div>
+            </aside>
+        </aside>
+    </aside>
+
+
+}
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    function openFile() {
+
+        var fileUpload = document.getElementById("fileupload");
+        var imgPreview = document.getElementById("imgpreview");
+        var imgOne = fileUpload.files[0];
+
+        if (fileUpload.files.length > 0) {
+
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                imgPreview.src = reader.result;
+            };
+
+            imgPreview.onload = function () {
+
+            }
+
+            reader.readAsDataURL(imgOne);
+
+        } else {
+
+        }
+    }
+</script>

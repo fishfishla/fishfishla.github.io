@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7de8f094653740a3a7e45ece89a65578" Name="Diagram1">
+        <EntityTypeShape EntityType="dbCookingModel.t參加者" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCookingModel.t評價" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCookingModel.t會員" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="dbCookingModel.FK__t參加者__f會員Id__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCookingModel.FK__t評價__f參加者Id__33D4B598" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbCookingModel.t建議食材" Width="1.5" PointX="5.25" PointY="7.75" />
+        <EntityTypeShape EntityType="dbCookingModel.t留言" Width="1.5" PointX="8.25" PointY="2.5" />
+        <EntityTypeShape EntityType="dbCookingModel.t檢舉" Width="1.5" PointX="8.25" PointY="10.5" />
+        <AssociationConnector Association="dbCookingModel.FK__t留言__f留言人Id__4D94879B" />
+        <AssociationConnector Association="dbCookingModel.FK__t檢舉__f檢舉人Id__49C3F6B7" />
+        <EntityTypeShape EntityType="dbCookingModel.t聚會" Width="1.5" PointX="3" PointY="2.875" />
+        <AssociationConnector Association="dbCookingModel.FK__t建議食材__f聚會Id__60A75C0F" />
+        <AssociationConnector Association="dbCookingModel.FK__t留言__f留言的聚會Id__628FA481" />
+        <AssociationConnector Association="dbCookingModel.FK__t參加者__f聚會Id__5EBF139D" />
+        <AssociationConnector Association="dbCookingModel.FK__t評價__f聚會Id__5FB337D6" />
+        <AssociationConnector Association="dbCookingModel.FK__t聚會__f主辦人__5DCAEF64" />
+        <AssociationConnector Association="dbCookingModel.FK__t檢舉__f被檢舉的聚會Id__619B8048" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

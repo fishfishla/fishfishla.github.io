@@ -1,0 +1,294 @@
+﻿@using prjCooking.ViewModel
+@using prjCooking.Models
+@using PagedList
+@using PagedList.Mvc
+
+@model C主辦Or報名ViewModel
+
+@{
+    ViewBag.Title = "報名紀錄";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="service-tag py-5 bg-white">
+    <!-- 報名紀錄 標體 -->
+    <section class="row text-center mt-5">
+        <hgroup class="col">
+            <h2>報名紀錄</h2>
+        </hgroup>
+    </section>
+    <!-- end 報名紀錄 標體 -->
+    <!-- 下拉選單 -->
+    @*<section class="row justify-content-center my-3">*@
+    <section class="row my-3">
+        <!-- 排序 -->
+        @*<div class="dropdown mr-5">*@
+        <div class="dropdown pl-3">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">@Model.CurrentSort</button>
+            <div class="dropdown-menu">
+                @{
+                    int sortIndxe = 0;
+
+                    foreach (string s in Model.SortList)
+                    {
+                        @Html.ActionLink(s, "報名紀錄",
+                            new { sort = Model.SortNumberList[sortIndxe], statu = Model.CurrentStatu },
+                            new { @class = "dropdown-item" }
+                        );
+
+                        sortIndxe++;
+                    }
+                }
+            </div>
+        </div>
+        <!-- end 排序 -->
+        <!-- 活動狀態 -->
+        @*<div class="dropdown">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">@Model.CurrentStatu</button>
+                <div class="dropdown-menu">
+                    @{
+                        int statuIndex = 0;
+                        foreach (string s in Model.StatuList)
+                        {
+                            @Html.ActionLink(s, "報名紀錄",
+                                new { sort = Model.CurrentSort, statu = Model.StatuNumberList[statuIndex] },
+                                new { @class = "dropdown-item" }
+                            );
+
+                            statuIndex++;
+                        }
+                    }
+                </div>
+            </div>*@
+        <!-- edn 活動狀態 -->
+    </section>
+    <!-- end 下拉選單 -->
+    <!-- 電腦版 報名紀錄 表格 -->
+    <section class="row justify-content-center d-none d-md-block">
+        <section class="col">
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>活動狀態</th>
+                            <th>活動時間</th>
+                            <th>活動主題</th>
+                            <th>主辦人</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.Info != null)
+                            {
+                                int count1 = 0;
+                                foreach (CCaptureMeetInfo cmi in Model.Info)
+                                {
+                                    <!-- 一筆資料 -->
+                                    <tr>
+                                        @{
+                                            @*報名*@
+                                            if (!cmi.Is報名.Value)
+                                            {
+                                                if (cmi.Is核准.Value)
+                                                {
+                                                    if ((int)聚會狀態.可報名 != cmi.聚會狀態Number)
+                                                    {
+                                                        <td class="align-middle">@cmi.聚會狀態Name</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="align-middle">已核准</td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td class="align-middle">未核准參與</td>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <td class="align-middle">已取消報名</td>
+                                            }
+                                        }
+                                        <td class="align-middle">@cmi.聚會日期.ToString("yyyy/MM/dd")</td>
+                                        <td class="align-middle">@cmi.聚會名稱</td>
+                                        <td class="align-middle">@cmi.主辦人</td>
+                                        <!-- 按鈕 表格 -->
+                                        <td class="row align-middle w-100">
+                                            <section class="mr-2 my-2">
+                                                @Html.ActionLink("查看詳細",
+                                                   "showParty",
+                                                   new { id = cmi.聚會ID },
+                                                   new { @class = "btn btn-outline-info" })
+                                            </section>
+                                            @if ((int)聚會狀態.可報名 == cmi.聚會狀態Number && !cmi.Is核准.Value && !cmi.Is報名.Value)
+                                            {
+                                        <section class="mr-2 my-2">
+                                            
+                                            <button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#modalone@{@count1}">取消報名</button>
+                                            <br><br>
+                                            <div class="modal text-center" id="modalone@{@count1}">
+                                                <div class="modal-md modal-dialog modal-dialog-scrollable">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+
+                                                            <img src="~/Image/heart.svg" class="modal-title">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>確定要取消報名嗎?</p>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal">取消</button>
+
+                                                            @Html.ActionLink("確定",
+                                                "取消報名",
+                                                new { 聚會Id = cmi.聚會ID },
+                                                new { @class = "btn btn-sm btn-outline-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        count1++;
+                                            }
+                                            @if ((int)聚會狀態.已結束 == cmi.聚會狀態Number && cmi.Is核准.Value && !cmi.Has評價)
+                                            {
+                                                <section class="mr-2 my-2">
+                                                    <a href="~/Meet/showParty/@cmi.聚會ID#myform" class="btn btn-secondary">可進行成果發表</a>
+                                                </section>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <!-- end 一筆資料 -->
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+    <!-- end 電腦版 報名紀錄 表格 -->
+    <!-- 手機板 報名紀錄 表格 -->
+    <section class="row my-3 d-block d-md-none">
+        @{
+                if (Model.Info != null)
+                {
+                    int count2 = 0;
+                    foreach (CCaptureMeetInfo cmi in Model.Info)
+                    {
+                    <!-- 一筆資料 -->
+                    <div class="col mb-5">
+                        <div class="card h-100" style="background-color: #eee;">
+                            @{
+                                @*報名*@
+                                if (!cmi.Is報名.Value)
+                                {
+                                    if (cmi.Is核准.Value)
+                                    {
+                                        if ((int)聚會狀態.可報名 != cmi.聚會狀態Number)
+                                        {
+                                            <!-- Sale badge-->
+                                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">@cmi.聚會狀態Name</div>
+                                        }
+                                        else
+                                        {
+                                            <!-- Sale badge-->
+                                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">已核准</div>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <!-- Sale badge-->
+                                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">未核准參與</div>
+                                    }
+                                }
+                                else
+                                {
+                                    <!-- Sale badge-->
+                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">已取消報名</div>
+                                }
+                            }
+
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">@cmi.聚會名稱</h5>
+                                    <!-- Product price-->
+                                    @cmi.聚會日期.ToString("yyyy/MM/dd")<br>
+                                    @cmi.主辦人<br>
+                                </div>
+                            </div>
+                            <!-- Product actions -->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    @Html.ActionLink("查看詳細",
+                                       "showParty",
+                                       new { id = cmi.聚會ID },
+                                       new { @class = "btn btn-info" })
+                                    @if ((int)聚會狀態.可報名 == cmi.聚會狀態Number && !cmi.Is核准.Value && !cmi.Is報名.Value)
+                                    {
+                                        <button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#phmodalone@{@count2}">取消報名</button>
+                                        <br><br>
+                                        <div class="modal text-center" id="phmodalone@{@count2}">
+                                            <div class="modal-md modal-dialog modal-dialog-scrollable">
+
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <img src="~/Image/heart.svg" class="modal-title">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>確定要取消報名嗎?</p>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                        <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal">取消</button>
+
+                                                        @Html.ActionLink("確定",
+                                            "取消報名",
+                                            new { 聚會Id = cmi.聚會ID },
+                                            new { @class = "btn btn-sm btn-outline-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        count2++;
+                                    }
+                                    @if ((int)聚會狀態.已結束 == cmi.聚會狀態Number && cmi.Is核准.Value && !cmi.Has評價)
+                                    {
+                                        <section class="mr-2 my-2">
+                                            <a href="~/Meet/showParty/@cmi.聚會ID#myform" class="btn btn-secondary">可進行成果發表</a>
+                                        </section>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end 一筆資料 -->
+                }
+            }
+        }
+    </section>
+    <!-- end 手機板 報名紀錄 表格 -->
+    <!-- 分頁 -->
+    <nav class="row justify-content-center my-3">
+        @if (Model.Info != null)
+        {
+            @Html.PagedListPager(Model.Info, page => Url.Action("報名紀錄", new { page }))
+        }
+    </nav>
+    <!-- end 分頁 -->
+</div>
+
+

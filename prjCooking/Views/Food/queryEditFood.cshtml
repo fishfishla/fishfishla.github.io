@@ -1,0 +1,130 @@
+﻿@model prjCooking.ViewModel.CFoodViewModel
+
+@{
+    ViewBag.Title = "CreateFood";
+}
+<style>
+
+    .timeFalse {
+        color: crimson;
+        font-size: 14px;
+    }
+
+    .timeTrue {
+        color: darkcyan;
+        font-size: 14px;
+    }
+</style>
+<h2 class="text-info">舉辦共煮</h2>
+<hr>
+<br>
+@using (Html.BeginForm("queryEditFood", "Food",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="container myfont1">
+            <!-- 網站內容 -->
+
+
+            <section>
+                <div class="container ">
+                    <div class="row">
+
+                        <div class="col-md-6 offset-md-1 text-center bg-light">
+
+                            <div class="row">
+                                <aside class="col-6 text-left">
+                                    <br>
+                                    <h4 class="text-info">編輯共煮食材:</h4>
+                                </aside>
+                                <aside class="col-6 text-right">
+                                    <br>
+                                    @Html.ActionLink("回到食材列表", "queryFoodList", new { id = Model.f聚會Id }, new { @Class = "btn btn-sm btn-outline-secondary" })
+                                </aside>
+
+                                <aside class="col-12 text-left">
+
+                                    <hr>
+                                    <br>
+
+                                    <input type="hidden" value="@Model.f聚會Id" name="f聚會Id" />
+                                    <input type="hidden" value="@Model.f建議食材Id" name="f建議食材Id" />
+                                </aside>
+
+                                <aside class="form-group col-6 text-left">
+
+                                    @Html.LabelFor(model => model.f食材名稱, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.f食材名稱, new { htmlAttributes = new { @class = "form-control", name = "f食材名稱", id = "foodname" } })<span id="W_foodname"></span>
+                                    @Html.ValidationMessageFor(model => model.f食材名稱, "", new { @class = "text-danger" })
+
+
+                                </aside>
+                                <aside class="form-group col-3 text-left">
+                                    @Html.LabelFor(model => model.f數量, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.f數量, new { htmlAttributes = new { @class = "form-control", name = "f數量", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.f數量, "", new { @class = "text-danger" })
+
+
+                                </aside>
+                                <aside class="form-group col-3 text-left">
+                                    @Html.LabelFor(model => model.f單位, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.f單位, new { htmlAttributes = new { @class = "form-control", name = "f食材名稱" } })
+                                    @Html.ValidationMessageFor(model => model.f單位, "", new { @class = "text-danger" })
+
+                                </aside>
+                                <aside class="col-12 text-right">
+
+
+                                    <input class="btn btn-outline-info" type="submit" value="儲存" data-toggle="modal" data-target="#modalone">
+
+
+                                </aside>
+                                <aside class="col-12 text-right">
+                                </aside>
+
+                                <aside class="col-12 text-right">
+                                    <br><hr>
+
+
+                                    <br><br>
+                                </aside>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+            <br><br>
+
+        </div>
+    </div>
+
+
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    document.getElementById("foodname").addEventListener("blur", chkfoodname);
+
+    function chkfoodname() {
+
+        let Ofoodname = document.getElementById("foodname");
+        let OfoodnameVal = Ofoodname.value;
+        let sp = document.getElementById("W_foodname");
+        if (OfoodnameVal == "") {
+            sp.innerHTML = "⛔ 食材名稱不可空白";
+            document.getElementById("W_foodname").className = "timeFalse";
+
+        } else {
+            sp.innerHTML = "✔ 輸入正確";
+            document.getElementById("W_foodname").className = "timeTrue";
+        }
+
+    }
+</script>

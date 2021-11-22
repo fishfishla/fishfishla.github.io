@@ -1,0 +1,228 @@
+﻿
+@using prjCooking.Models
+@model prjCooking.ViewModel.C個人頁面ViewModel
+
+
+
+@{
+    ViewBag.Title = "個人頁面";
+}
+<style>
+    .url_div {
+        color: darkslategray;
+    }
+
+        .url_div:hover {
+            color: cadetblue;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+    .img_div {
+        opacity: 0.85;
+        filter: alpha(opacity=50);
+    }
+
+        .img_div:hover {
+            opacity: 1.0;
+            filter: alpha(opacity=100);
+            transform:rotate(20deg);
+        }
+
+    .positif {
+        position: fixed !important;
+        right: 150px;
+    }
+
+    @@media (min-width:761px) {
+        .positif {
+            position: fixed !important;
+            right: 150px;
+        }
+    }
+
+    @@media (max-width:760px) {
+        .positif {
+            position: relative !important;
+            right: 50px;
+            top: 30px;
+        }
+    }
+
+    #div1 {
+        border: #000 solid 0px;
+        /* overflow: hidden; */
+    }
+
+        #div1 img {
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+            #div1 img:hover {
+                transform: rotate(-30deg);
+               
+            }
+
+    #img_big {
+        border: #000 solid 0px;
+    }
+
+        #img_big img {
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+            #img_big img:hover {
+                transform: scale(1.3);
+                
+            }
+</style>
+
+
+<!-- 一小塊空白 -->
+<section class="service-wrapper py-7">
+    <div class="service-tag py-5 bg-white">
+    </div>
+</section>
+
+
+
+<section>
+
+    <div class="container ">
+        <div class="row">
+
+
+
+            <div class="col-md-6 offset-md-1 text-center bg-light">
+                <div class="row">
+                   
+                        <div class="col-md-6" id="div1">
+                            <br><br />
+                            <img src="~/Image/@Model.f會員照片" class="rounded-circle " width="170" height="170" /><br />
+                            <br />
+                        </div>
+                      
+                            
+                   
+                        <div class="col-md-6 ">
+                            <div class="row">
+                                @if (Model.f會員Id == Model.目前會員id)
+                                {
+                                    <div class="col-12 text-right">
+                                        <a href="" class="text-info dropdown-toggle" data-toggle="dropdown"><i class="bi-gear" style="font-size: 2rem; color:cadetblue;"></i></a>
+                                        <div class="dropdown-menu">
+                                            @Html.ActionLink("編輯資訊", "Edit_info", "Member", new { id = Model.f會員Id }, new { Class = "dropdown-item" })
+                                            <div class="dropdown-divider"></div>
+                                            @Html.ActionLink("修改密碼", "Edit_password", "Member", new { id = Model.f會員Id }, new { Class = "dropdown-item" })
+
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-left">
+                                        <input type="hidden" name="f會員Id" value="" />
+
+                                        <br>
+                                        <h4>@Model.f會員姓名</h4>
+
+                                        <!-- 自我介紹 -->
+                                        <p class="text-secondary">@Model.f自我介紹</p>
+                                        <br>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-12 text-left">
+                                        <input type="hidden" name="f會員Id" value="" />
+
+                                        <br><br />
+                                        <h4>@Model.f會員姓名</h4>
+
+                                        <!-- 自我介紹 -->
+                                        <p class="text-secondary">@Model.f自我介紹</p>
+                                        <br>
+                                    </div>
+                                }
+
+                            </div>
+                            
+                            
+
+
+                            @*@if (Model.f會員Id == Model.目前會員id)
+                            {
+                                <div class="row">
+                                    <div class="col-6">
+                                        @Html.ActionLink("編輯資訊", "Edit_info", "Member", new { id = Model.f會員Id }, new { Class = "btn btn-outline-secondary" })
+                                    </div>
+                                    <div class="col-6">
+                                        @Html.ActionLink("修改密碼", "Edit_password", "Member", new { id = Model.f會員Id }, new { Class = "btn btn-outline-secondary" })
+                                    </div>
+                                </div>
+                            }*@
+
+                            <br>
+
+                        </div>
+
+                        <br>
+                        <div class="col-md-12 text-left">
+
+                            <hr>
+                            <h5 class="text-secondary">煮辦的聚會:</h5>
+                            <br />
+                        </div>
+
+                    </div>
+                <br>
+                <div class="row">
+                    @foreach (var item in Model.會員聚會資訊)
+                    {
+                        <div class="col-6" id="img_big">
+
+                            <a class="text-secondary" href="~/Meet/showParty/@item.f聚會Id"><img src="~/Image/@item.f聚會照片" class=" img-fluid rounded" style="height: 170px;width: 170px;"><br />@Html.ActionLink(@item.f聚會名稱, "showParty", "Meet", new { id = item.f聚會Id }, new { Class = "url_div" })</a>
+                            <br /><br />
+
+                        </div>
+
+                    }
+
+
+
+                    <!-- 聚會展示結束 -->
+
+                </div>
+            </div>
+            <!-- 顯示最新聚會開始 -->
+            <aside class="col-md-2 positif">
+                <div class="row ">
+                    <div class="col-12 text-center mb-1">
+                        <p><span class="badge badge-info">New</span>共煮聚會</p>
+                    </div>
+                    <div class="col-12 text-center">
+                        <a href="~/Meet/showParty/@Model.最新聚會[0].f聚會Id"><img class="img_div img-fluid rounded" src="~/Image/@Model.最新聚會[0].f聚會照片" width="150"></a>
+                        <a href="~/Meet/showParty/@Model.最新聚會[0].f聚會Id" class="url_div"><br>@Model.最新聚會[0].f聚會名稱</a>
+                        <br>
+                    </div>
+
+                    <div class="col-12 text-center ">
+                        <br>
+                        <a href="~/Meet/showParty/@Model.最新聚會[1].f聚會Id"><img class="img_div img-fluid rounded" src="~/Image/@Model.最新聚會[1].f聚會照片" width="150"></a>
+                        <a href="~/Meet/showParty/@Model.最新聚會[1].f聚會Id" class="url_div"><br>@Model.最新聚會[1].f聚會名稱</a>
+                        <br>
+                    </div>
+
+
+                </div>
+            </aside>
+            <!-- 最新聚會結束 -->
+
+        </div>
+    </div>
+</section>
+
+
+<br>
+
+
+

@@ -1,0 +1,168 @@
+﻿@using prjCooking.Models
+@{ 
+    t會員 會員 = null;
+    if (Session[CSessionKey.登入會員_t會員] != null)
+    {
+        會員 = Session[CSessionKey.登入會員_t會員] as t會員;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/Image/favicon.ico" rel="shortcut icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title 煮播</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+
+    <style>
+
+        .myfont1 {
+            font-family: "微軟正黑體";
+        }
+
+        .myfont2 {
+            font-family: "微軟正黑體";
+            color: black;
+        }
+
+        .myfont3 {
+            font-family: "微軟正黑體";
+            color: gray;
+        }
+
+        .personalPhoto {
+            height: 31px;
+            width: 31px;
+            border-radius: 50%;
+        }
+
+        .personalPhoto1 {
+            height: 74px;
+            width: 74px;
+            border-radius: 50%;
+        }
+        .search1{
+            margin:0px;
+            display: inline;
+
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- 導航列 -->
+
+    <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light">
+        <!--  這是 LOGO 文字或圖片  -->
+
+        <span>
+            <a href="#"  style="text-decoration:none;">&#129368;</a>
+            @Html.ActionLink("煮播", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Cooking online", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-info" })
+        </span>
+        <!--  這是手機版時右上角呈現的選單按鈕, 注意:data-target表示按下這個按鈕時要控制展開收合的物件ID名稱  -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- 這是按鈕上呈現的icon圖案 -->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- navbar-collapse表示這個框架區塊是可收展開的, 注意:id名稱必須跟button中的data-target一樣 -->
+        <!-- 左右二組選單要分散到二邊時, 方法(1)父層加justify-content-between的class名稱  -->
+        <!-- 左右二組選單要分散到二邊時, 方法(2)子層左側選單組加mr-auto的class名稱  -->
+        <!-- 左右二組選單要分散到二邊時, 方法(3)子層右側選單組加ml-auto的class名稱  -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- 這是一組靠左側的選單 -->
+            <ul class="navbar-nav mr-auto">
+                <!-- active在視覺上設計底色不同,表示目前在這個位置,如果不需要則刪除  -->
+                <li class="nav-item">
+                    @Html.ActionLink("關於我們", "", "", new { area = "" }, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("新手上路", "", "", new { area = "" }, new { @class = "nav-link" })
+                </li>
+                <li>
+                    <form method="get" action="~/Home/Index">
+                        <input type="text" class="form-control mr-1 search1" style="width:200px" placeholder="關鍵字" name="txtSearch"/>
+                        <input type="submit" value="Search" class="btn btn-light nav-link rounded-pill search1" />
+                    </form>
+                </li>
+                
+                @if (會員 != null)
+                {
+                    if (會員.f權限 == (int)權限.管理者)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria- haspopup="true" aria-expanded="false">管理者後台</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @Html.ActionLink("用戶管理", "List", "Manager", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("聚會管理", "PartyList", "Manager", new { area = "" }, new { @class = "dropdown-item" })
+
+                            </div>
+                        </li>
+                    }
+                }
+                
+
+
+            </ul>
+
+            <!-- 這是一組靠右側的選單 -->
+            <ul class="navbar-nav">
+                <!-- active在視覺上設計底色不同,表示目前在這個位置,如果不需要則刪除  -->
+                @{
+                    if (會員 != null)
+                    {
+                        <li>
+
+                            @Html.ActionLink("舉辦共煮", "CreateParty", "Meet", new { id = @會員.f會員Id }, new { @class = "nav-item nav-link" })
+                        </li>
+                        <li class="nav-item dropdown" data-display="static">
+                            <!-- 加上 dropdown, 表示擁有下一層收合展開的子選單 ********** -->
+                            <a class="nav-link dropdown-toggle " href="個人頁面.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/Image/@會員.f會員照片" class=" personalPhoto" alt="" /></a>  <!-- a連結加上 dropdown-toggle 及相關的屬性 ********** -->
+                            <div class="dropdown-menu text-center dropdown-menu-right " aria-labelledby="navbarDropdownMenuLink">
+                                <!-- 子選單的 div ********** -->
+                                <a class="dropdown-item" href="~/Member/Show個人頁面/@會員.f會員Id"><img src="~/Image/@會員.f會員照片" class=" personalPhoto1" alt="" /><br /></a>
+
+
+                                @Html.ActionLink(會員.f會員姓名, "Show個人頁面", "Member", new { id = @會員.f會員Id }, new { @class = "dropdown-item", })
+                                <hr>
+                                @Html.ActionLink("查看個人頁面", "Show個人頁面", "Member", new { id = @會員.f會員Id }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("我主辦的共煮聚會", "主辦紀錄", "Meet", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("我參加的共煮聚會", "報名紀錄", "Meet", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("登出", "登入", "Member", new { area = "" }, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+
+                            @Html.ActionLink("登入 / 註冊", "登入", "Member", new { area = "" }, new { @class = "nav-link" })
+                        </li>                  
+                        
+
+                    }
+                }
+
+
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 煮播</p>
+        </footer>
+    </div>
+
+</body>
+</html>

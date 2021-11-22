@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "註冊";
+}
+
+<style>
+
+    .timeFalse {
+        color: crimson;
+        font-size: 14px;
+    }
+
+    .timeTrue {
+        color: darkcyan;
+        font-size: 14px;
+    }
+</style>
+<!-- 一小塊空白 -->
+<section class="service-wrapper py-7">
+    <div class="service-tag py-5 bg-white">
+    </div>
+</section>
+
+
+<form method="post" class="form-horizontal" style="text-align:center;" onsubmit="return check();">
+    <section>
+        <div class="container ">
+            <div class="row ">
+                <div class="col-md-6 offset-md-3 bg-light">
+                    <div class="col-12 text-left">
+                        <br />
+                        <h2 class="text-info">會員註冊</h2>
+                        <hr />
+                    </div>
+                    <div class="col-3"></div>
+                    <div class="col-12 text-left">
+                        <br />
+                        <div class="col-12 text-left">
+                            <p>會員帳號:</p>
+                        </div>
+                        <div>
+                            <input placeholder="請輸入信箱" class="form-control" type="email" name="txtEmail" disabled="@ViewBag.dis" value="@ViewBag.驗證mail"><br>
+                        </div>
+                        <div class="col-12 text-left">
+                            <p>密碼: </p>
+                        </div>
+                        <div class="text-right">
+                            <input placeholder="6個字以上，至少含有一個英文字及數字" class="form-control" type="password" name="txtPwd" id="chPwd" onblur="ch();" required><span id="message"></span><br>
+                        </div>
+                        <div class="col-12 text-left">
+                            <p>暱稱:</p>
+                        </div>
+                        <div class="text-right">
+                            <input placeholder="至少2字" class="form-control" type="text" name="txtName" id="txtName" onblur="chN();" required><span id="message1"></span><br>
+                        </div>
+                        <div class="col-12 text-left">
+                            <p>性別</p>
+                        </div>
+                        <div>
+                            <select name="txtGender">
+                                <option value="0" selected>不透露</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select><br>
+                        </div>
+                        <br><br>
+                        <div class="col-3"></div>
+                        <div class="col-12 text-right">
+                            <input type="submit" class="btn  btn-info form-control" value="確定註冊" />
+
+                        </div>
+                        <div class="col-12">
+                            <br /><br /><br />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12"></div>                
+            </div>
+        </div>
+    </section>
+</form>
+
+<script>
+    var chPwd = document.getElementById("chPwd");
+    var message = document.getElementById("message");
+    function ch() {
+        
+        //6個字以上，至少含有一個英文字及數字
+        var PwdRule = /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
+        if (chPwd.value != null) {
+            if (chPwd.value.length >= 6 && chPwd.value.length <= 20) {
+                if (chPwd.value.match(PwdRule) == null) {
+
+                    message.innerHTML = "⛔ 密碼需含英文、數字";
+                    document.getElementById("message").className = "timeFalse";
+                    //alert("密碼格式錯誤")
+                }
+                else {
+                    message.innerHTML = "✔ 輸入正確";
+                    document.getElementById("message").className = "timeTrue";
+                }                
+            }
+            else {
+                message.innerHTML = "⛔ 需輸入至少6個字，20個字以內";
+                document.getElementById("message").className = "timeFalse";
+            }
+        }        
+    }
+
+    function check() {
+        if (message.innerHTML == "✔ 輸入正確") {
+            return true;
+        } else {
+            return false;
+        }
+          
+    }
+</script>
+<script>
+    var txtName = document.getElementById("txtName");
+    var message1 = document.getElementById("message1");
+    function chN() {
+        if (txtName.value != null) {
+            if (txtName.value.length < 2) {
+                message1.innerHTML = "⛔ 至少2個字";
+                document.getElementById("message1").className = "timeFalse";
+            } else {
+                message1.innerHTML = "";
+            }
+        }        
+    }
+    
+</script>
+

@@ -1,0 +1,219 @@
+﻿@using prjCooking.ViewModel
+@using prjCooking.Models
+@model C主頁面展示ViewModel
+
+@{
+    ViewBag.Title = " ";
+}
+
+<style>
+    .card-img {
+        width: 270px;
+        height: 270px;
+        padding-right: 10px;
+    }
+</style>
+
+<!-- 網站內容 -->
+<!-- 輪播器, 跑馬燈, Carousel -->
+<section class="service-wrapper py-7">
+    <div class="service-tag py-3 bg-white">
+    </div>
+</section>
+<div class="carousel slide carousel-fade mt-1" id="myCarousel" data-interval="4000" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <a href="#">
+                <img src="~/Image/bg-01.jpg"
+                     class="img-fluid" alt="pancake1">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="#">
+                <img src="~/Image/bg-02.jpg" class="img-fluid" alt="pancake1">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="#">
+                <img src="~/Image/bg-03.jpg" class="img-fluid" alt="pancake1">
+            </a>
+        </div>
+    </div>
+
+    <a href="#myCarousel" class="carousel-control-prev" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a href="#myCarousel" class="carousel-control-next" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+</div>
+<!-- end Carousel-->
+
+<div class="service-tag py-3 bg-info">
+    <div class="col-md-12">
+        <ul class="nav nav-pills d-flex justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="filter-btn nav-link btn-outline-secondary  rounded-pill text-light px-4 light-200" id="pills-allmeet-tab" data-toggle="pill" href="#pills-allmeet" role="tab" aria-controls="pills-allmeet" aria-selected="true">所有聚會</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="filter-btn nav-link btn-outline-secondary  rounded-pill text-light px-4 light-200" id="pills-nostartmeet-tab" data-toggle="pill" href="#pills-nostartmeet" role="tab" aria-controls="pills-nostartmeet" aria-selected="false">可報名</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="filter-btn nav-link btn-outline-secondary  rounded-pill text-light px-4 light-200" id="pills-ingmeet-tab" data-toggle="pill" href="#pills-ingmeet" role="tab" aria-controls="pills-ingmeet" aria-selected="false">進行中</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="filter-btn nav-link btn-outline-secondary  rounded-pill text-light px-4 light-200" id="pills-endmeet-tab" data-toggle="pill" href="#pills-endmeet" role="tab" aria-controls="pills-endmeet" aria-selected="false">已結束</a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<div class="tab-content" id="pills-tabContent">
+    
+    <!-- 全部聚會 -->
+    <div class="tab-pane fade show active" id="pills-allmeet" role="tabpanel" aria-labelledby="pills-allmeet-tab">
+        <section class="container overflow-hidden py-5">
+            <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects">
+                @foreach (t聚會 聚會 in Model.全部聚會)
+                {
+                    <!-- Start Recent Work -->
+                    <div class="col-xl-3 col-md-4 col-sm-6">
+                        <a href="~/Meet/showParty/@聚會.f聚會Id" class="service-work card border-0  shadow-sm overflow-hidden mx-5 m-sm-0">
+                            <img class="card-img" src="~/Image/@聚會.f聚會照片" alt="Card image">
+                        </a>
+
+                        <div class="form-row text-left mt-2 ">
+                            <a href="~/Meet/showParty/@聚會.f聚會Id" class="myfont2" style="text-decoration:none;">
+                                <h5>@聚會.f聚會名稱</h5>
+                                <span>@聚會.f聚會開始時間.ToString("MM月dd日") ,@聚會.f聚會開始時間.DayOfWeek</span><br />
+                                @*<span>@聚會.f聚會軟體</span><br />*@
+                            </a>
+
+                        </div>
+                        <div>
+                            <a href="~/Member/Show個人頁面/@聚會.t會員.f會員Id" class="myfont2 text-dark">
+                                <span><img src="~/Image/@聚會.t會員.f會員照片" class="rounded-circle " width="31" height="31" /></span>
+
+                                <span>@聚會.t會員.f會員姓名</span>
+                                <br /><br />
+                            </a>
+                            
+                        </div>
+                    </div><!-- End Recent Work -->
+                }
+            </div>
+        </section>
+    </div>
+
+    <!-- 進行中的聚會 -->
+    <div class="tab-pane fade" id="pills-ingmeet" role="tabpanel" aria-labelledby="pills-ingmeet-tab">
+        <section class="container overflow-hidden py-5">
+            <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects">
+                @foreach (t聚會 聚會 in Model.進行中聚會)
+                {
+                    <!-- Start Recent Work -->
+                    <div class="col-xl-3 col-md-4 col-sm-6">
+                        <a href="~/Meet/showParty/@聚會.f聚會Id" class="service-work card border-0  shadow-sm overflow-hidden mx-5 m-sm-0">
+                            <img class="card-img" src="~/Image/@聚會.f聚會照片" alt="Card image">
+                        </a>
+
+                        <div class="form-row text-left mt-2 ">
+                            <a href="~/Meet/showParty/@聚會.f聚會Id" class="myfont2" style="text-decoration:none;">
+                                <h5>@聚會.f聚會名稱</h5>
+                                <span>@聚會.f聚會開始時間.ToString("MM月dd日") ,@聚會.f聚會開始時間.DayOfWeek</span><br />
+                                <span>@聚會.f聚會軟體</span><br />
+                            </a>
+
+                        </div>
+                        <div>
+                            <a href="~/Member/Show個人頁面/@聚會.t會員.f會員Id" class="myfont2 text-dark">
+                                <span><img src="~/Image/@聚會.t會員.f會員照片" class="rounded-circle " width="31" height="31" /></span>
+
+                                <span>@聚會.t會員.f會員姓名</span>
+                                <br /><br />
+                            </a>
+
+                        </div>
+                    </div><!-- End Recent Work -->
+                }
+            </div>
+        </section>
+    </div>
+
+    <!-- 未開始的聚會 -->
+    <div class="tab-pane fade" id="pills-nostartmeet" role="tabpanel" aria-labelledby="pills-nostartmeet-tab">
+        <section class="container overflow-hidden py-5">
+            <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects">
+                @foreach (t聚會 聚會 in Model.未開始聚會)
+                {
+                    <!-- Start Recent Work -->
+                    <div class="col-xl-3 col-md-4 col-sm-6">
+                        <a href="~/Meet/showParty/@聚會.f聚會Id" class="service-work card border-0  shadow-sm overflow-hidden mx-5 m-sm-0">
+                            <img class="card-img" src="~/Image/@聚會.f聚會照片" alt="Card image">
+                        </a>
+
+                        <div class="form-row text-left mt-2 ">
+                            <a href="~/Meet/showParty/@聚會.f聚會Id" class="myfont2" style="text-decoration:none;">
+                                <h5>@聚會.f聚會名稱</h5>
+                                <span>@聚會.f聚會開始時間.ToString("MM月dd日") ,@聚會.f聚會開始時間.DayOfWeek</span><br />
+                                <span>@聚會.f聚會軟體</span><br />
+                            </a>
+
+                        </div>
+                        <div>
+                            <a href="~/Member/Show個人頁面/@聚會.t會員.f會員Id" class="myfont2 text-dark">
+                                <span><img src="~/Image/@聚會.t會員.f會員照片" class="rounded-circle " width="31" height="31" /></span>
+
+                                <span>@聚會.t會員.f會員姓名</span>
+                                <br /><br />
+                            </a>
+
+                        </div>
+                    </div><!-- End Recent Work -->
+                }
+            </div>
+        </section>
+    </div>
+
+    <!-- 已結束的聚會 -->
+    <div class="tab-pane fade" id="pills-endmeet" role="tabpanel" aria-labelledby="pills-endmeet-tab">
+        <section class="container overflow-hidden py-5">
+            <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects">
+                @foreach (t聚會 聚會 in Model.已結束聚會)
+                {
+                    <!-- Start Recent Work -->
+                    <div class="col-xl-3 col-md-4 col-sm-6">
+                        <a href="~/Meet/showParty/@聚會.f聚會Id" class="service-work card border-0  shadow-sm overflow-hidden mx-5 m-sm-0">
+                            <img class="card-img" src="~/Image/@聚會.f聚會照片" alt="Card image">
+                        </a>
+
+                        <div class="form-row text-left mt-2 ">
+                            <a href="~/Meet/showParty/@聚會.f聚會Id" class="myfont2" style="text-decoration:none;">
+                                <h5>@聚會.f聚會名稱</h5>
+                                <span>@聚會.f聚會開始時間.ToString("MM月dd日") ,@聚會.f聚會開始時間.DayOfWeek</span><br />
+                                <span>@聚會.f聚會軟體</span><br />
+                            </a>
+
+                        </div>
+                        <div>
+                            <a href="~/Member/Show個人頁面/@聚會.t會員.f會員Id" class="myfont2 text-dark">
+                                <span><img src="~/Image/@聚會.t會員.f會員照片" class="rounded-circle " width="31" height="31" /></span>
+
+                                <span>@聚會.t會員.f會員姓名</span>
+                                <br /><br />
+                            </a>
+
+                        </div>
+                    </div><!-- End Recent Work -->
+                }
+            </div>
+        </section>
+    </div>
+</div>

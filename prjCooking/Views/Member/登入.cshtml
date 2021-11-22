@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "登入";
+}
+
+
+<!-- 一小塊空白 -->
+<section class="service-wrapper py-7">
+    <div class="service-tag py-5 bg-white">
+    </div>
+</section>
+
+
+<form method="post" class="form-horizontal" style="text-align:center;" action="~/Member/登入">
+    <section>
+        <div class="container ">
+            <div class="row ">
+                <div class="col-md-6 offset-md-3 bg-light">
+                    <div class="col-12 text-left">
+                        <br />
+                        <h3 class="text-info">會員登入</h3>
+                        <hr />
+                    </div>
+                   
+                    <div class="col-12 text-left">
+                        <br />
+                        <p>會員帳號:</p>
+                        <input placeholder="請輸入註冊的信箱" class="form-control" type="email" name="txtEmail" required><br>
+                        <p>密碼:</p>
+                        <input placeholder="請輸入密碼" class="form-control" type="password" name="txtPwd" required>
+                        <div class="text-right">
+                            <span class="text-danger">@ViewBag.通知訊息</span>
+                        </div>
+                        <br>                                                                     
+                    </div>
+
+                  
+                    <div class="col-12 text-right">
+                        <a href="忘記密碼">忘記密碼?</a>
+                        <input type="submit" class="btn  btn-info form-control" value="登入" />
+                        <br /><br />
+                        @Html.ActionLink("點我註冊", "信箱驗證", null, new { Class = "btn  btn-outline-info form-control" })
+                    </div>
+                    
+                    <div class="col-12">
+                        <br><br /><br />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <br />
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

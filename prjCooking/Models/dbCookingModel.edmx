@@ -1,0 +1,676 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbCookingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t建議食材">
+          <Key>
+            <PropertyRef Name="f建議食材Id" />
+          </Key>
+          <Property Name="f建議食材Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f聚會Id" Type="int" Nullable="false" />
+          <Property Name="f食材名稱" Type="nvarchar" MaxLength="50" />
+          <Property Name="f數量" Type="int" />
+          <Property Name="f單位" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t留言">
+          <Key>
+            <PropertyRef Name="f留言Id" />
+          </Key>
+          <Property Name="f留言Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f留言人Id" Type="int" Nullable="false" />
+          <Property Name="f留言的聚會Id" Type="int" Nullable="false" />
+          <Property Name="f留言文字" Type="nvarchar" MaxLength="50" />
+          <Property Name="f留言建立日期" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="t參加者">
+          <Key>
+            <PropertyRef Name="f參加者Id" />
+          </Key>
+          <Property Name="f參加者Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f會員Id" Type="int" Nullable="false" />
+          <Property Name="f聚會Id" Type="int" Nullable="false" />
+          <Property Name="f審核狀態" Type="bit" Nullable="false" />
+          <Property Name="f報名" Type="bit" Nullable="false" />
+          <Property Name="f參加者建立日期" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t評價">
+          <Key>
+            <PropertyRef Name="f評價Id" />
+          </Key>
+          <Property Name="f評價Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f聚會Id" Type="int" Nullable="false" />
+          <Property Name="f參加者Id" Type="int" Nullable="false" />
+          <Property Name="f留言" Type="nvarchar(max)" />
+          <Property Name="f照片" Type="nvarchar(max)" />
+          <Property Name="f評價建立日期" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t會員">
+          <Key>
+            <PropertyRef Name="f會員Id" />
+          </Key>
+          <Property Name="f會員Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f會員信箱" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="f會員密碼" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="f會員姓名" Type="nvarchar" MaxLength="50" />
+          <Property Name="f會員電話" Type="nvarchar" MaxLength="50" />
+          <Property Name="f性別" Type="int" />
+          <Property Name="f自我介紹" Type="nvarchar(max)" />
+          <Property Name="f會員照片" Type="nvarchar(max)" />
+          <Property Name="f權限" Type="int" />
+          <Property Name="f會員建立日期" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t聚會">
+          <Key>
+            <PropertyRef Name="f聚會Id" />
+          </Key>
+          <Property Name="f聚會Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f主辦人" Type="int" Nullable="false" />
+          <Property Name="f聚會名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="f聚會內容" Type="nvarchar" MaxLength="50" />
+          <Property Name="f聚會照片" Type="nvarchar(max)" />
+          <Property Name="f聚會日期" Type="smalldatetime" Nullable="false" />
+          <Property Name="f聚會開始時間" Type="smalldatetime" Nullable="false" />
+          <Property Name="f聚會結束時間" Type="smalldatetime" />
+          <Property Name="f名額" Type="int" />
+          <Property Name="f聚會軟體" Type="nvarchar" MaxLength="50" />
+          <Property Name="f聚會軟體URL" Type="nvarchar(max)" />
+          <Property Name="f聚會關鍵字" Type="nvarchar(max)" />
+          <Property Name="f聚會通訊軟體" Type="nvarchar" MaxLength="50" />
+          <Property Name="f聚會通訊軟體帳號" Type="nvarchar" MaxLength="50" />
+          <Property Name="f主辦人影片URL" Type="nvarchar(max)" />
+          <Property Name="f聚會狀態" Type="int" />
+          <Property Name="f聚會垃圾桶" Type="bit" />
+          <Property Name="f聚會建立日期" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t檢舉">
+          <Key>
+            <PropertyRef Name="f檢舉Id" />
+          </Key>
+          <Property Name="f檢舉Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f檢舉人Id" Type="int" Nullable="false" />
+          <Property Name="f被檢舉的聚會Id" Type="int" Nullable="false" />
+          <Property Name="f檢舉原因" Type="nvarchar" MaxLength="50" />
+          <Property Name="f檢舉建立日期" Type="smalldatetime" />
+        </EntityType>
+        <Association Name="FK__t建議食材__f聚會Id__60A75C0F">
+          <End Role="t聚會" Type="Self.t聚會" Multiplicity="1" />
+          <End Role="t建議食材" Type="Self.t建議食材" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t建議食材">
+              <PropertyRef Name="f聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t留言__f留言人Id__4D94879B">
+          <End Role="t會員" Type="Self.t會員" Multiplicity="1" />
+          <End Role="t留言" Type="Self.t留言" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t留言">
+              <PropertyRef Name="f留言人Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t留言__f留言的聚會Id__628FA481">
+          <End Role="t聚會" Type="Self.t聚會" Multiplicity="1" />
+          <End Role="t留言" Type="Self.t留言" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t留言">
+              <PropertyRef Name="f留言的聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t參加者__f會員Id__2C3393D0">
+          <End Role="t會員" Type="Self.t會員" Multiplicity="1" />
+          <End Role="t參加者" Type="Self.t參加者" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t參加者">
+              <PropertyRef Name="f會員Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t參加者__f聚會Id__5EBF139D">
+          <End Role="t聚會" Type="Self.t聚會" Multiplicity="1" />
+          <End Role="t參加者" Type="Self.t參加者" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t參加者">
+              <PropertyRef Name="f聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t評價__f參加者Id__33D4B598">
+          <End Role="t參加者" Type="Self.t參加者" Multiplicity="1" />
+          <End Role="t評價" Type="Self.t評價" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t參加者">
+              <PropertyRef Name="f參加者Id" />
+            </Principal>
+            <Dependent Role="t評價">
+              <PropertyRef Name="f參加者Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t評價__f聚會Id__5FB337D6">
+          <End Role="t聚會" Type="Self.t聚會" Multiplicity="1" />
+          <End Role="t評價" Type="Self.t評價" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t評價">
+              <PropertyRef Name="f聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t聚會__f主辦人__5DCAEF64">
+          <End Role="t會員" Type="Self.t會員" Multiplicity="1" />
+          <End Role="t聚會" Type="Self.t聚會" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t聚會">
+              <PropertyRef Name="f主辦人" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t檢舉__f被檢舉的聚會Id__619B8048">
+          <End Role="t聚會" Type="Self.t聚會" Multiplicity="1" />
+          <End Role="t檢舉" Type="Self.t檢舉" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t檢舉">
+              <PropertyRef Name="f被檢舉的聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t檢舉__f檢舉人Id__49C3F6B7">
+          <End Role="t會員" Type="Self.t會員" Multiplicity="1" />
+          <End Role="t檢舉" Type="Self.t檢舉" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t檢舉">
+              <PropertyRef Name="f檢舉人Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbCookingModelStoreContainer">
+          <EntitySet Name="t建議食材" EntityType="Self.t建議食材" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t留言" EntityType="Self.t留言" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t參加者" EntityType="Self.t參加者" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t評價" EntityType="Self.t評價" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t會員" EntityType="Self.t會員" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t聚會" EntityType="Self.t聚會" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t檢舉" EntityType="Self.t檢舉" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__t建議食材__f聚會Id__60A75C0F" Association="Self.FK__t建議食材__f聚會Id__60A75C0F">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t建議食材" EntitySet="t建議食材" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t留言__f留言人Id__4D94879B" Association="Self.FK__t留言__f留言人Id__4D94879B">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t留言" EntitySet="t留言" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t留言__f留言的聚會Id__628FA481" Association="Self.FK__t留言__f留言的聚會Id__628FA481">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t留言" EntitySet="t留言" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t參加者__f會員Id__2C3393D0" Association="Self.FK__t參加者__f會員Id__2C3393D0">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t參加者" EntitySet="t參加者" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t參加者__f聚會Id__5EBF139D" Association="Self.FK__t參加者__f聚會Id__5EBF139D">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t參加者" EntitySet="t參加者" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t評價__f參加者Id__33D4B598" Association="Self.FK__t評價__f參加者Id__33D4B598">
+            <End Role="t參加者" EntitySet="t參加者" />
+            <End Role="t評價" EntitySet="t評價" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t評價__f聚會Id__5FB337D6" Association="Self.FK__t評價__f聚會Id__5FB337D6">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t評價" EntitySet="t評價" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t聚會__f主辦人__5DCAEF64" Association="Self.FK__t聚會__f主辦人__5DCAEF64">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t聚會" EntitySet="t聚會" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t檢舉__f被檢舉的聚會Id__619B8048" Association="Self.FK__t檢舉__f被檢舉的聚會Id__619B8048">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t檢舉" EntitySet="t檢舉" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t檢舉__f檢舉人Id__49C3F6B7" Association="Self.FK__t檢舉__f檢舉人Id__49C3F6B7">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t檢舉" EntitySet="t檢舉" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbCookingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="t參加者">
+          <Key>
+            <PropertyRef Name="f參加者Id" />
+          </Key>
+          <Property Name="f參加者Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f會員Id" Type="Int32" Nullable="false" />
+          <Property Name="f聚會Id" Type="Int32" Nullable="false" />
+          <Property Name="f審核狀態" Type="Boolean" Nullable="false" />
+          <Property Name="f報名" Type="Boolean" Nullable="false" />
+          <Property Name="f參加者建立日期" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="t會員" Relationship="Self.FK__t參加者__f會員Id__2C3393D0" FromRole="t參加者" ToRole="t會員" />
+          <NavigationProperty Name="t評價" Relationship="Self.FK__t評價__f參加者Id__33D4B598" FromRole="t參加者" ToRole="t評價" />
+          <NavigationProperty Name="t聚會" Relationship="dbCookingModel.FK__t參加者__f聚會Id__5EBF139D" FromRole="t參加者" ToRole="t聚會" />
+        </EntityType>
+        <EntityType Name="t評價">
+          <Key>
+            <PropertyRef Name="f評價Id" />
+          </Key>
+          <Property Name="f評價Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f聚會Id" Type="Int32" Nullable="false" />
+          <Property Name="f參加者Id" Type="Int32" Nullable="false" />
+          <Property Name="f留言" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f照片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f評價建立日期" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t參加者" Relationship="Self.FK__t評價__f參加者Id__33D4B598" FromRole="t評價" ToRole="t參加者" />
+          <NavigationProperty Name="t聚會" Relationship="dbCookingModel.FK__t評價__f聚會Id__5FB337D6" FromRole="t評價" ToRole="t聚會" />
+        </EntityType>
+        <EntityType Name="t會員">
+          <Key>
+            <PropertyRef Name="f會員Id" />
+          </Key>
+          <Property Name="f會員Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f會員信箱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f會員密碼" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f會員姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f會員電話" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f性別" Type="Int32" />
+          <Property Name="f自我介紹" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f會員照片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f權限" Type="Int32" />
+          <Property Name="f會員建立日期" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="t參加者" Relationship="Self.FK__t參加者__f會員Id__2C3393D0" FromRole="t會員" ToRole="t參加者" />
+          <NavigationProperty Name="t留言" Relationship="dbCookingModel.FK__t留言__f留言人Id__4D94879B" FromRole="t會員" ToRole="t留言" />
+          <NavigationProperty Name="t檢舉" Relationship="dbCookingModel.FK__t檢舉__f檢舉人Id__49C3F6B7" FromRole="t會員" ToRole="t檢舉" />
+          <NavigationProperty Name="t聚會" Relationship="dbCookingModel.FK__t聚會__f主辦人__5DCAEF64" FromRole="t會員" ToRole="t聚會" />
+        </EntityType>
+        <Association Name="FK__t參加者__f會員Id__2C3393D0">
+          <End Role="t會員" Type="Self.t會員" Multiplicity="1" />
+          <End Role="t參加者" Type="Self.t參加者" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t參加者">
+              <PropertyRef Name="f會員Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t評價__f參加者Id__33D4B598">
+          <End Role="t參加者" Type="Self.t參加者" Multiplicity="1" />
+          <End Role="t評價" Type="Self.t評價" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t參加者">
+              <PropertyRef Name="f參加者Id" />
+            </Principal>
+            <Dependent Role="t評價">
+              <PropertyRef Name="f參加者Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbCookingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t參加者" EntityType="Self.t參加者" />
+          <EntitySet Name="t評價" EntityType="Self.t評價" />
+          <EntitySet Name="t會員" EntityType="Self.t會員" />
+          <AssociationSet Name="FK__t參加者__f會員Id__2C3393D0" Association="Self.FK__t參加者__f會員Id__2C3393D0">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t參加者" EntitySet="t參加者" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t評價__f參加者Id__33D4B598" Association="Self.FK__t評價__f參加者Id__33D4B598">
+            <End Role="t參加者" EntitySet="t參加者" />
+            <End Role="t評價" EntitySet="t評價" />
+          </AssociationSet>
+          <EntitySet Name="t建議食材" EntityType="dbCookingModel.t建議食材" />
+          <EntitySet Name="t留言" EntityType="dbCookingModel.t留言" />
+          <EntitySet Name="t檢舉" EntityType="dbCookingModel.t檢舉" />
+          <AssociationSet Name="FK__t留言__f留言人Id__4D94879B" Association="dbCookingModel.FK__t留言__f留言人Id__4D94879B">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t留言" EntitySet="t留言" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t檢舉__f檢舉人Id__49C3F6B7" Association="dbCookingModel.FK__t檢舉__f檢舉人Id__49C3F6B7">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t檢舉" EntitySet="t檢舉" />
+          </AssociationSet>
+          <EntitySet Name="t聚會" EntityType="dbCookingModel.t聚會" />
+          <AssociationSet Name="FK__t建議食材__f聚會Id__60A75C0F" Association="dbCookingModel.FK__t建議食材__f聚會Id__60A75C0F">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t建議食材" EntitySet="t建議食材" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t留言__f留言的聚會Id__628FA481" Association="dbCookingModel.FK__t留言__f留言的聚會Id__628FA481">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t留言" EntitySet="t留言" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t參加者__f聚會Id__5EBF139D" Association="dbCookingModel.FK__t參加者__f聚會Id__5EBF139D">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t參加者" EntitySet="t參加者" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t評價__f聚會Id__5FB337D6" Association="dbCookingModel.FK__t評價__f聚會Id__5FB337D6">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t評價" EntitySet="t評價" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t聚會__f主辦人__5DCAEF64" Association="dbCookingModel.FK__t聚會__f主辦人__5DCAEF64">
+            <End Role="t會員" EntitySet="t會員" />
+            <End Role="t聚會" EntitySet="t聚會" />
+          </AssociationSet>
+          <AssociationSet Name="FK__t檢舉__f被檢舉的聚會Id__619B8048" Association="dbCookingModel.FK__t檢舉__f被檢舉的聚會Id__619B8048">
+            <End Role="t聚會" EntitySet="t聚會" />
+            <End Role="t檢舉" EntitySet="t檢舉" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="t建議食材">
+          <Key>
+            <PropertyRef Name="f建議食材Id" />
+          </Key>
+          <Property Name="f建議食材Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f聚會Id" Type="Int32" Nullable="false" />
+          <Property Name="f食材名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f數量" Type="Int32" />
+          <Property Name="f單位" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t聚會" Relationship="dbCookingModel.FK__t建議食材__f聚會Id__60A75C0F" FromRole="t建議食材" ToRole="t聚會" />
+        </EntityType>
+        <EntityType Name="t留言">
+          <Key>
+            <PropertyRef Name="f留言Id" />
+          </Key>
+          <Property Name="f留言Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f留言人Id" Type="Int32" Nullable="false" />
+          <Property Name="f留言的聚會Id" Type="Int32" Nullable="false" />
+          <Property Name="f留言文字" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f留言建立日期" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="t會員" Relationship="dbCookingModel.FK__t留言__f留言人Id__4D94879B" FromRole="t留言" ToRole="t會員" />
+          <NavigationProperty Name="t聚會" Relationship="dbCookingModel.FK__t留言__f留言的聚會Id__628FA481" FromRole="t留言" ToRole="t聚會" />
+        </EntityType>
+        <EntityType Name="t檢舉">
+          <Key>
+            <PropertyRef Name="f檢舉Id" />
+          </Key>
+          <Property Name="f檢舉Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f檢舉人Id" Type="Int32" Nullable="false" />
+          <Property Name="f被檢舉的聚會Id" Type="Int32" Nullable="false" />
+          <Property Name="f檢舉原因" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f檢舉建立日期" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="t會員" Relationship="dbCookingModel.FK__t檢舉__f檢舉人Id__49C3F6B7" FromRole="t檢舉" ToRole="t會員" />
+          <NavigationProperty Name="t聚會" Relationship="dbCookingModel.FK__t檢舉__f被檢舉的聚會Id__619B8048" FromRole="t檢舉" ToRole="t聚會" />
+        </EntityType>
+        <Association Name="FK__t留言__f留言人Id__4D94879B">
+          <End Type="dbCookingModel.t會員" Role="t會員" Multiplicity="1" />
+          <End Type="dbCookingModel.t留言" Role="t留言" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t留言">
+              <PropertyRef Name="f留言人Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t檢舉__f檢舉人Id__49C3F6B7">
+          <End Type="dbCookingModel.t會員" Role="t會員" Multiplicity="1" />
+          <End Type="dbCookingModel.t檢舉" Role="t檢舉" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t檢舉">
+              <PropertyRef Name="f檢舉人Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="t聚會">
+          <Key>
+            <PropertyRef Name="f聚會Id" />
+          </Key>
+          <Property Name="f聚會Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f主辦人" Type="Int32" Nullable="false" />
+          <Property Name="f聚會名稱" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會內容" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會照片" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會日期" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="f聚會開始時間" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="f聚會結束時間" Type="DateTime" Precision="0" />
+          <Property Name="f名額" Type="Int32" />
+          <Property Name="f聚會軟體" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會軟體URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會關鍵字" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會通訊軟體" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會通訊軟體帳號" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f主辦人影片URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="f聚會狀態" Type="Int32" />
+          <Property Name="f聚會垃圾桶" Type="Boolean" />
+          <Property Name="f聚會建立日期" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="t建議食材" Relationship="dbCookingModel.FK__t建議食材__f聚會Id__60A75C0F" FromRole="t聚會" ToRole="t建議食材" />
+          <NavigationProperty Name="t留言" Relationship="dbCookingModel.FK__t留言__f留言的聚會Id__628FA481" FromRole="t聚會" ToRole="t留言" />
+          <NavigationProperty Name="t參加者" Relationship="dbCookingModel.FK__t參加者__f聚會Id__5EBF139D" FromRole="t聚會" ToRole="t參加者" />
+          <NavigationProperty Name="t評價" Relationship="dbCookingModel.FK__t評價__f聚會Id__5FB337D6" FromRole="t聚會" ToRole="t評價" />
+          <NavigationProperty Name="t會員" Relationship="dbCookingModel.FK__t聚會__f主辦人__5DCAEF64" FromRole="t聚會" ToRole="t會員" />
+          <NavigationProperty Name="t檢舉" Relationship="dbCookingModel.FK__t檢舉__f被檢舉的聚會Id__619B8048" FromRole="t聚會" ToRole="t檢舉" />
+        </EntityType>
+        <Association Name="FK__t建議食材__f聚會Id__60A75C0F">
+          <End Type="dbCookingModel.t聚會" Role="t聚會" Multiplicity="1" />
+          <End Type="dbCookingModel.t建議食材" Role="t建議食材" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t建議食材">
+              <PropertyRef Name="f聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t留言__f留言的聚會Id__628FA481">
+          <End Type="dbCookingModel.t聚會" Role="t聚會" Multiplicity="1" />
+          <End Type="dbCookingModel.t留言" Role="t留言" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t留言">
+              <PropertyRef Name="f留言的聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t參加者__f聚會Id__5EBF139D">
+          <End Type="dbCookingModel.t聚會" Role="t聚會" Multiplicity="1" />
+          <End Type="dbCookingModel.t參加者" Role="t參加者" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t參加者">
+              <PropertyRef Name="f聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t評價__f聚會Id__5FB337D6">
+          <End Type="dbCookingModel.t聚會" Role="t聚會" Multiplicity="1" />
+          <End Type="dbCookingModel.t評價" Role="t評價" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t評價">
+              <PropertyRef Name="f聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t聚會__f主辦人__5DCAEF64">
+          <End Type="dbCookingModel.t會員" Role="t會員" Multiplicity="1" />
+          <End Type="dbCookingModel.t聚會" Role="t聚會" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t會員">
+              <PropertyRef Name="f會員Id" />
+            </Principal>
+            <Dependent Role="t聚會">
+              <PropertyRef Name="f主辦人" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__t檢舉__f被檢舉的聚會Id__619B8048">
+          <End Type="dbCookingModel.t聚會" Role="t聚會" Multiplicity="1" />
+          <End Type="dbCookingModel.t檢舉" Role="t檢舉" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t聚會">
+              <PropertyRef Name="f聚會Id" />
+            </Principal>
+            <Dependent Role="t檢舉">
+              <PropertyRef Name="f被檢舉的聚會Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbCookingModelStoreContainer" CdmEntityContainer="dbCookingEntities">
+          <EntitySetMapping Name="t參加者">
+            <EntityTypeMapping TypeName="dbCookingModel.t參加者">
+              <MappingFragment StoreEntitySet="t參加者">
+                <ScalarProperty Name="f參加者Id" ColumnName="f參加者Id" />
+                <ScalarProperty Name="f會員Id" ColumnName="f會員Id" />
+                <ScalarProperty Name="f聚會Id" ColumnName="f聚會Id" />
+                <ScalarProperty Name="f審核狀態" ColumnName="f審核狀態" />
+                <ScalarProperty Name="f報名" ColumnName="f報名" />
+                <ScalarProperty Name="f參加者建立日期" ColumnName="f參加者建立日期" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t評價">
+            <EntityTypeMapping TypeName="dbCookingModel.t評價">
+              <MappingFragment StoreEntitySet="t評價">
+                <ScalarProperty Name="f評價Id" ColumnName="f評價Id" />
+                <ScalarProperty Name="f聚會Id" ColumnName="f聚會Id" />
+                <ScalarProperty Name="f參加者Id" ColumnName="f參加者Id" />
+                <ScalarProperty Name="f留言" ColumnName="f留言" />
+                <ScalarProperty Name="f照片" ColumnName="f照片" />
+                <ScalarProperty Name="f評價建立日期" ColumnName="f評價建立日期" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t會員">
+            <EntityTypeMapping TypeName="dbCookingModel.t會員">
+              <MappingFragment StoreEntitySet="t會員">
+                <ScalarProperty Name="f會員Id" ColumnName="f會員Id" />
+                <ScalarProperty Name="f會員信箱" ColumnName="f會員信箱" />
+                <ScalarProperty Name="f會員密碼" ColumnName="f會員密碼" />
+                <ScalarProperty Name="f會員姓名" ColumnName="f會員姓名" />
+                <ScalarProperty Name="f會員電話" ColumnName="f會員電話" />
+                <ScalarProperty Name="f性別" ColumnName="f性別" />
+                <ScalarProperty Name="f自我介紹" ColumnName="f自我介紹" />
+                <ScalarProperty Name="f會員照片" ColumnName="f會員照片" />
+                <ScalarProperty Name="f權限" ColumnName="f權限" />
+                <ScalarProperty Name="f會員建立日期" ColumnName="f會員建立日期" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t建議食材">
+            <EntityTypeMapping TypeName="dbCookingModel.t建議食材">
+              <MappingFragment StoreEntitySet="t建議食材">
+                <ScalarProperty Name="f單位" ColumnName="f單位" />
+                <ScalarProperty Name="f數量" ColumnName="f數量" />
+                <ScalarProperty Name="f食材名稱" ColumnName="f食材名稱" />
+                <ScalarProperty Name="f聚會Id" ColumnName="f聚會Id" />
+                <ScalarProperty Name="f建議食材Id" ColumnName="f建議食材Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t留言">
+            <EntityTypeMapping TypeName="dbCookingModel.t留言">
+              <MappingFragment StoreEntitySet="t留言">
+                <ScalarProperty Name="f留言建立日期" ColumnName="f留言建立日期" />
+                <ScalarProperty Name="f留言文字" ColumnName="f留言文字" />
+                <ScalarProperty Name="f留言的聚會Id" ColumnName="f留言的聚會Id" />
+                <ScalarProperty Name="f留言人Id" ColumnName="f留言人Id" />
+                <ScalarProperty Name="f留言Id" ColumnName="f留言Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t檢舉">
+            <EntityTypeMapping TypeName="dbCookingModel.t檢舉">
+              <MappingFragment StoreEntitySet="t檢舉">
+                <ScalarProperty Name="f檢舉建立日期" ColumnName="f檢舉建立日期" />
+                <ScalarProperty Name="f檢舉原因" ColumnName="f檢舉原因" />
+                <ScalarProperty Name="f被檢舉的聚會Id" ColumnName="f被檢舉的聚會Id" />
+                <ScalarProperty Name="f檢舉人Id" ColumnName="f檢舉人Id" />
+                <ScalarProperty Name="f檢舉Id" ColumnName="f檢舉Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t聚會">
+            <EntityTypeMapping TypeName="dbCookingModel.t聚會">
+              <MappingFragment StoreEntitySet="t聚會">
+                <ScalarProperty Name="f聚會建立日期" ColumnName="f聚會建立日期" />
+                <ScalarProperty Name="f聚會垃圾桶" ColumnName="f聚會垃圾桶" />
+                <ScalarProperty Name="f聚會狀態" ColumnName="f聚會狀態" />
+                <ScalarProperty Name="f主辦人影片URL" ColumnName="f主辦人影片URL" />
+                <ScalarProperty Name="f聚會通訊軟體帳號" ColumnName="f聚會通訊軟體帳號" />
+                <ScalarProperty Name="f聚會通訊軟體" ColumnName="f聚會通訊軟體" />
+                <ScalarProperty Name="f聚會關鍵字" ColumnName="f聚會關鍵字" />
+                <ScalarProperty Name="f聚會軟體URL" ColumnName="f聚會軟體URL" />
+                <ScalarProperty Name="f聚會軟體" ColumnName="f聚會軟體" />
+                <ScalarProperty Name="f名額" ColumnName="f名額" />
+                <ScalarProperty Name="f聚會結束時間" ColumnName="f聚會結束時間" />
+                <ScalarProperty Name="f聚會開始時間" ColumnName="f聚會開始時間" />
+                <ScalarProperty Name="f聚會日期" ColumnName="f聚會日期" />
+                <ScalarProperty Name="f聚會照片" ColumnName="f聚會照片" />
+                <ScalarProperty Name="f聚會內容" ColumnName="f聚會內容" />
+                <ScalarProperty Name="f聚會名稱" ColumnName="f聚會名稱" />
+                <ScalarProperty Name="f主辦人" ColumnName="f主辦人" />
+                <ScalarProperty Name="f聚會Id" ColumnName="f聚會Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

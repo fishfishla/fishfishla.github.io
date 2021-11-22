@@ -1,0 +1,129 @@
+﻿@using prjCooking.ViewModel
+@using prjCooking.Models
+@model C資格審核ViewModel
+
+@{
+    ViewBag.Title = "資格審核";
+}
+
+<div class="service-tag py-5 bg-white">
+    <!-- 資格審核 標體 -->
+    <section class="row d-flex text-center mt-5">
+        <hgroup class="col">
+            <h2>@Model.當前聚會.f聚會名稱 - 資格審核</h2>
+        </hgroup>
+    </section>
+    <!-- end 資格審核 標體 -->
+    <!-- 資格審核 主體 -->
+    <section class="row">
+        <!-- 分頁導覽 -->
+        <nav class="col mt-3">
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="pass-tab" data-toggle="tab" data-target="#pass" type="button" role="tab" aria-controls="pass" aria-selected="true">已核准</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="nopass-tab" data-toggle="tab" data-target="#nopass" type="button" role="tab" aria-controls="nopass" aria-selected="false">未審核&nbsp;<span class="badge badge-danger">@Model.未審核.Count</span></a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <!-- 核准 內容 -->
+                <div class="tab-pane fade show active" id="pass" role="tabpanel" aria-labelledby="pass-tab">
+                    <!-- 核准後的會員陳列 -->
+                    <section class="row">
+                        @{
+                            foreach (C審核參加者資訊 info in Model.核准)
+                            {
+                                <!-- 一筆會員資料 -->
+                                <div class="col-6 col-md-3 pt-3">
+                                    <div class="card h-100">
+                                        @if (info.會員照片 != "")
+                                        {
+                                            <!-- Product image-->
+                                            <img class="card-img-top" src="~/image/@info.會員照片" alt="@info.會員姓名" />
+                                            <!-- Product details-->
+                                        }
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h5>@info.會員姓名</h5>
+                                            </div>
+                                        </div>
+                                        <!-- Product actions-->
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center">
+                                                @Html.ActionLink(
+                                                   "檢視",
+                                                   "Show個人頁面",
+                                                   "Member",
+                                                   new { id = info.參加者Id },
+                                                   new { @class = "btn btn-outline-info mt-auto" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end 一筆會員資料 -->
+                            }
+                        }
+                    </section>
+                    <!-- end 核准後的會員陳列 -->
+                </div>
+                <!-- end 核准 內容 -->
+                <!-- 未審核 內容 -->
+                <div class="tab-pane fade" id="nopass" role="tabpanel" aria-labelledby="nopass-tab">
+                    <!-- 未審核的會員陳列 -->
+                    <section class="row">
+                        @{
+                            foreach (C審核參加者資訊 info in Model.未審核)
+                            {
+                                <!-- 一筆會員資料 -->
+                                <div class="col-6 col-md-3 pt-3">
+                                    <div class="card h-100">
+                                        @if (info.會員照片 != "")
+                                        {
+                                            <!-- Product image-->
+                                            <img class="card-img-top" src="~/image/@info.會員照片" alt="@info.會員姓名" />
+                                            <!-- Product details-->
+                                        }
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h5>@info.會員姓名</h5>
+                                            </div>
+                                        </div>
+                                        <!-- Product actions-->
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center">
+                                                @Html.ActionLink(
+                                                   "檢視",
+                                                   "Show個人頁面",
+                                                   "Member",
+                                                   new { id = info.參加者Id },
+                                                   new { @class = "btn btn-outline-info mt-auto" })
+                                                @if (Model.核准.Count < Model.當前聚會.f名額.Value)
+                                                {
+                                                    <br>
+                                                    @Html.ActionLink(
+                                                       "核准",
+                                                       "核准參加者",
+                                                       new { 聚會Id = info.聚會Id, 參加者Id = info.參加者Id },
+                                                       new { @class = "btn btn-outline-primary my-2" })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end 一筆會員資料 -->
+                            }
+                        }
+                    </section>
+                    <!-- end 未審核的會員陳列 -->
+                </div>
+                <!-- end 未審核 內容 -->
+            </div>
+        </nav>
+        <!-- end 分頁導覽 -->
+    </section>
+    <!-- end 資格審核 主體 -->
+</div>
+

@@ -1,0 +1,253 @@
+﻿@using prjCooking.Models
+@model prjCooking.ViewModel.CPartyViewModel
+
+
+
+@{
+    ViewBag.Title = "編輯聚會";
+}
+<style>
+    .timeFalse {
+        color: crimson;
+        font-size: 14px;
+    }
+
+    .timeTrue {
+        color: darkcyan;
+        font-size: 14px;
+    }
+</style>
+<h2 class="text-info">舉辦共煮</h2>
+<hr>
+<br>
+
+@using (Html.BeginForm("Edit_party", "Meet",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-7 offset-md-2 text-center bg-light">
+
+                    <div class="row">
+
+                        <div class="form-group col-md-12 text-left">
+                            <br>
+                            <input type="hidden" value="@ViewBag.聚會id" name="f聚會id" />
+                            <!-- 照片 -->
+                            <img src="~/Image/@Model.f聚會照片" id="imgpreview" class="card-img" name="f聚會照片">
+                            <br><br>
+                            <input type="file" name="image" id="fileupload" accept="image/jpeg, image/gif, image/png" onchange="openFile()" multiple>
+                            <br>
+                            <!-- 照片結束 -->
+                            <hr>
+                        </div>
+
+
+                        <div class="form-group col-12 text-left">
+                            <span class="text-danger">*</span>@Html.LabelFor(model => model.f聚會名稱, htmlAttributes: new { @class = "control-label" })
+                       
+                            @Html.EditorFor(model => model.f聚會名稱, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入聚會名稱", name = "f聚會名稱" } })
+                            @Html.ValidationMessageFor(model => model.f聚會名稱, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                        <div class="form-group col-12 text-left">
+                            <label>請介紹您的共煮聚會:</label>
+
+                            @Html.EditorFor(model => model.f聚會內容, new { htmlAttributes = new { @class = "form-control", placeholder = "", name = "f聚會內容" } })
+                            @Html.ValidationMessageFor(model => model.f聚會內容, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-12 text-left">
+                            @Html.LabelFor(model => model.f聚會關鍵字, htmlAttributes: new { @class = "control-label" })<span class="text-danger">(請在每個關鍵字前加上#)</span>
+                        
+                            @Html.EditorFor(model => model.f聚會關鍵字, new { htmlAttributes = new { @class = "form-control", placeholder = "請在每個關鍵字前加上#", name = "f聚會關鍵字" } })
+                            @Html.ValidationMessageFor(model => model.f聚會關鍵字, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-12 text-left">
+                            <label> <span class="text-danger">*</span>聚會平台</label>
+                            @Html.EditorFor(model => model.f聚會軟體, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入平台名稱", name = "f聚會軟體" } })
+                            @Html.ValidationMessageFor(model => model.f聚會軟體, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-12 text-left">
+                            <label> <span class="text-danger">*</span>聚會連結</label>
+                            @Html.EditorFor(model => model.f聚會軟體URL, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入平台連結", name = "f聚會軟體URL" } })
+                            @Html.ValidationMessageFor(model => model.f聚會軟體URL, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                        <div class="form-group col-12 text-left">
+                            <span class="text-danger">*</span>  @Html.LabelFor(model => model.f聚會日期, htmlAttributes: new { @class = "control-label" })
+
+                            <input type="date" class="form-control" style = "width:60%" name="f聚會日期" value="@ViewBag.partydate" />
+                            @*@Html.EditorFor(model => model.f聚會日期, new { htmlAttributes = new { @class = "form-control",  name = "聚會時間", @value = "@ViewBag.partydate",
+                                style = "width:50%",@type="date" } })*@
+                            @Html.ValidationMessageFor(model => model.f聚會日期, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+
+                        <div class="form-group col-12 text-left">
+                            <span class="text-danger">*</span>@Html.LabelFor(model => model.f聚會開始時間, htmlAttributes: new { @class = "control-label" })
+                            <input type="time" class="form-control" style = "width:60%" name="聚會開始時間" value="@ViewBag.partystart" id="txt_starttime" />
+                            @*@Html.EditorFor(model => model.f聚會開始時間, new { htmlAttributes = new { @class = "form-control", @type = "time", style = "width:50%", name = "f聚會開始時間" } })*@
+                            @Html.ValidationMessageFor(model => model.f聚會開始時間, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+
+                        <div class="form-group col-12 text-left">
+                            <span class="text-danger">*</span>@Html.LabelFor(model => model.f聚會結束時間, htmlAttributes: new { @class = "control-label" })
+
+                            <input type="time" class="form-control" style = "width:60%" name="聚會結束時間" value="@ViewBag.partyend" id="txt_endtime" /><span id="W_endtime"></span>
+                            @*@Html.EditorFor(model => model.f聚會結束時間, new { htmlAttributes = new { @class = "form-control", @type = "time", style = "width:50%", name = "f聚會結束時間" } })*@
+                            @Html.ValidationMessageFor(model => model.f聚會結束時間, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                        <div class="form-group col-12 text-left">
+                            <span class="text-danger">*</span>@Html.LabelFor(model => model.f名額, htmlAttributes: new { @class = "control-label" })<span class="text-danger">(只能輸入數字)</span>
+                            @Html.EditorFor(model => model.f名額, new { htmlAttributes = new { @class = "form-control", @type = "number", placeholder = "請輸入數字", style = "width:25%", name = "f名額" } })
+                            @Html.ValidationMessageFor(model => model.f名額, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-12 text-left">
+                            <hr>
+                            <p>煮辦人聯絡資訊:</p>
+                            <p class="text-danger">以下內容僅提供給審核成功的共煮成員</p>
+
+                        </div>
+
+                        <!-- 煮辦人聯絡資訊 -->
+
+                        <div class="form-group col-12 text-left">
+                            <p>信箱:</p>
+                      
+                            <input type="text" placeholder="" class="form-control" value="@Model.f會員信箱 " disabled>
+                        </div>
+
+                        <div class="form-group col-12 text-left">
+                            @Html.LabelFor(model => model.f聚會通訊軟體, htmlAttributes: new { @class = "control-label" })
+                        
+                            @Html.EditorFor(model => model.f聚會通訊軟體, new { htmlAttributes = new { @class = "form-control", name = "f聚會通訊軟體" } })
+                            @Html.ValidationMessageFor(model => model.f聚會通訊軟體, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-12 text-left">
+                            @Html.LabelFor(model => model.f聚會通訊軟體帳號, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.f聚會通訊軟體帳號, new { htmlAttributes = new { @class = "form-control", name = "f聚會通訊軟體帳號" } })
+                            @Html.ValidationMessageFor(model => model.f聚會通訊軟體帳號, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-12 text-right">
+                           <hr>
+
+                            <input type="button" value="儲存" class="btn btn-outline-info" data-toggle="modal" data-target="#modalone" />
+                            <br><br>
+                            <div class="modal text-center" id="modalone">
+                                <div class="modal-md modal-dialog modal-dialog-scrollable">
+
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                           <img src="~/Image/heart.svg" class="modal-title">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>確定要修改嗎?</p>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="button" value="取消" class="btn btn-sm btn-outline-info" data-dismiss="modal">
+
+                                            <input type="submit" value="確定" class="btn btn-sm btn-outline-info">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    function openFile() {
+
+        var fileUpload = document.getElementById("fileupload");
+        var imgPreview = document.getElementById("imgpreview");
+        var imgOne = fileUpload.files[0];
+
+        if (fileUpload.files.length > 0) {
+
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                imgPreview.src = reader.result;
+            };
+
+            imgPreview.onload = function () {
+
+            }
+
+            reader.readAsDataURL(imgOne);
+
+        } else {
+
+        }
+    }
+</script>
+<script>
+    document.getElementById("txt_endtime").addEventListener("blur", chktime);
+    function chktime() {
+        let starttime = document.getElementById("txt_starttime");
+        let endtime = document.getElementById("txt_endtime");
+        let starttimeVal = starttime.value;
+        let endtimeVal = endtime.value;
+        let sp = document.getElementById("W_endtime");
+
+        if (endtimeVal == " ") {
+            sp.innerHTML = "⛔ 結束時間不可空白"
+            document.getElementById("W_endtime").className = "timeFalse";
+        }
+        else if (endtimeVal <= starttimeVal) {
+            sp.innerHTML = "⛔ 結束時間需大於開始時間";
+            document.getElementById("W_endtime").className = "timeFalse";
+        } else {
+            sp.innerHTML = "✔ 輸入正確";
+            document.getElementById("W_endtime").className = "timeTrue";
+        }
+    }
+   
+
+</script>
+
+

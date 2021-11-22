@@ -1,0 +1,119 @@
+﻿@using prjCooking.ViewModel;
+@model List<C管理者會員ViewModel>
+
+@{
+    ViewBag.Title = "用戶管理";
+}
+<section class="service-wrapper py-7">
+    <div class="service-tag py-5 bg-white">
+    </div>
+</section>
+
+<h2 class="text-info">用戶管理</h2>
+
+<hr>
+<br>
+
+@using (Html.BeginForm())
+{
+    <section>
+        <div class="container ">
+            <div class="row">
+                <div class="col-12 text-left">
+                    @Html.ActionLink("回到用戶列表", "List", "Manager", new { Class = "btn btn-sm btn-secondary" })
+                    <br /><br />
+                    <label>用戶查詢:</label>
+
+                    <br />
+
+                </div>
+                <div class="col-12 text-left">
+                    <input class="form-control" type="text" placeholder="請輸入帳號、姓名" name="txtKeyword" style="width:50%">
+                    <br />
+                    <input class="btn btn-sm btn-info" type="submit" value="查詢" />
+
+                    <br />
+
+                    <br /><br />
+                </div>
+
+
+            </div>
+        </div>
+
+    </section>
+}
+
+
+<table class="table  table-sm table-hover">
+    <thead class="thead-light">
+    <th class="col-md-1">
+        序號
+    </th>
+    <th class="col-md-1">
+        @Html.ActionLink("黑名單", "query黑名單", null, new { @class = "btn btn-sm btn-secondary" })
+
+    </th>
+    <th class="col-md-2">
+        @Html.DisplayNameFor(model => model[0].權限)
+    </th>
+    <th class="col-md-2">
+        @Html.DisplayNameFor(model => model[0].f會員信箱)
+
+    </th>
+
+    <th class="col-md-2">
+        @Html.DisplayNameFor(model => model[0].f會員姓名)
+    </th>
+
+    <th class="col-md-2">
+
+        @Html.DisplayNameFor(model => model[0].f會員建立日期)
+
+    </th>
+    <th class="col-md-2"></th>
+    </thead>
+
+    @{ int count = 0;
+
+        foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    @if (item.檢舉下架次數.Count >= 3)
+                    {
+                        <p>⚠</p>
+
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.權限)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f會員信箱)
+                </td>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.f會員姓名)
+
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.會員建立日期)
+                </td>
+                <td>
+
+                    @Html.ActionLink("查看", "Details", "Manager", new { id = item.f會員Id, 權限 = item.權限, 性別 = item.性別 }, new { Class = "btn btn-sm btn-outline-secondary" })
+                    @*@Html.ActionLink("刪除", "Delete", "Manager", new { id = item.f會員Id }, new { onclick = "return confirm('確定要刪除嗎?')", Class = "btn btn-sm btn-outline-secondary" })*@
+                </td>
+            </tr>
+        }
+    }
+</table>
+<br />

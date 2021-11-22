@@ -1,0 +1,146 @@
+﻿@using prjCooking.ViewModel;
+@using prjCooking.Models
+@model List<C管理者聚會ViewModel>
+
+@{
+    ViewBag.Title = "聚會管理";
+}
+<style>
+    .party_btn {
+        cursor: pointer;
+        transition: all 0.4s;
+    }
+
+        .party_btn:hover {
+            transform: rotate(+45deg);
+        }
+</style>
+<section class="service-wrapper py-7">
+    <div class="service-tag py-5 bg-white">
+    </div>
+</section>
+
+<h2 class="text-info">聚會管理</h2>
+<hr>
+<br>
+
+@using (Html.BeginForm())
+{
+    <section>
+        <div class="container ">
+            <div class="row">
+                <div class="col-12 text-left">
+                    @Html.ActionLink("回到聚會列表", "PartyList", null, new { @class = "btn btn-sm btn-secondary" })
+
+                    <br /><br />
+                    <label>聚會查詢:</label>
+                    <input class="form-control" type="text" placeholder="請輸入欲查詢的聚會名稱" style="width:50%" name="txtKeyword">
+                    <br />
+                </div>
+                <div class="col-12 text-left">
+                    <input class="btn btn-sm btn-info" type="submit" value="查詢" />
+                    <br /><br />
+                  <br />
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+}
+
+<table class="table table-sm table-hover table-condensed">
+    <thead class="thead-light">
+    <th>
+        序
+    </th>
+    <th>
+        @Html.ActionLink("🚨", "query檢舉", null, new { @class = "party_btn btn btn-sm" })
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model[0].聚會狀態)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model[0].聚會建立日期)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model[0].煮辦人姓名)
+    </th>
+
+    <th>
+        @Html.DisplayNameFor(model => model[0].f聚會名稱)
+    </th>
+
+
+
+
+
+    <th>
+    </th>
+    </thead>
+
+    @{
+        int 主辦人id = 0;
+        int count = 0;
+        foreach (var item in Model)
+        {
+            主辦人id = item.f主辦人;
+            count++;
+        <tr>
+            <td>
+                @count
+
+            </td>
+            <td>
+                @if ((item.f聚會垃圾桶 == false) && (item.聚會檢舉狀態顯示 == "已檢舉"))
+                {
+                    @Html.ActionLink("🚨", "檢舉頁面", new { id = item.f聚會Id }, new { Class = "party_btn btn btn-sm" })
+
+                }
+                else
+                {
+                    <p></p>
+                }
+
+            </td>
+            <td>
+                @if ((item.f聚會垃圾桶 == true) && (item.f聚會狀態 == 5))
+                {
+                    <p>檢舉下架</p>
+                    
+                }
+                else if (item.f聚會垃圾桶 == true)
+                {
+                    <p>已下架</p>
+                }
+                else
+                {
+                    <p></p>
+                }
+
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.聚會建立日期)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.煮辦人姓名)
+
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f聚會名稱)
+            </td>
+
+
+            <td>
+
+                @Html.ActionLink("查看", "showParty", "Meet", new { id = item.f聚會Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                @*@Html.ActionLink("編輯", "Edit", new { id = item.f聚會Id }, new { @class = "btn btn-sm btn-outline-secondary" })*@
+
+            </td>
+        </tr>
+        }
+    }
+</table>
