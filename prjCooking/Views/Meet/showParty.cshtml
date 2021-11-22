@@ -48,11 +48,11 @@
 
         #img_div img {
             cursor: pointer;
-            transition: all 0.6s;
+            transition: all 0.3s;
         }
 
             #img_div img:hover {
-                transform: scale(1.4);
+                transform: scale(1.2);
             }
 </style>
 
@@ -247,8 +247,6 @@
 
                             }
                             <!-- 若為主辦人瀏覽自己舉辦的聚會+disabled,btn就會無法點選-->
-
-                          
                             <!-- 食材 -->
                             <!-- 1個食材row2,2個食材row3,3個食材row4 -->
                             @if (Model.食材資訊List.Count > 0)
@@ -272,12 +270,12 @@
                                     }
                                 </table>}
                             <!-- 聚會影片 -->
-                            @if ((!string.IsNullOrEmpty(Model.聚會資訊.f主辦人影片URL))&& ((int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態))
+                            @if ((!string.IsNullOrEmpty(Model.聚會資訊.f主辦人影片URL)) && ((int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態))
                             {
                                 <hr />
                                 <label class="text-dark">聚會影片</label>
                             }
-                            @if ((Model.主辦人資訊.f會員Id == Model.當前登入會員資訊.f會員Id)&&((int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態))
+                            @if ((Model.主辦人資訊.f會員Id == Model.當前登入會員資訊.f會員Id) && ((int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態))
                             {
 
                                 <form method="get" action="~/Meet/add主辦人影片">
@@ -285,7 +283,7 @@
                                     <br /><br />
                                     <div id="主辦人影片" class="collapse">
                                         <input type="hidden" value="@Model.聚會資訊.f聚會Id" name="聚會Id">
-                                        
+
                                         <label>youtube嵌入連結:</label><a href="" data-toggle="modal" data-target="#modaloneUrl">
                                             找不到youtube嵌入連結?
                                         </a>
@@ -357,15 +355,16 @@
 
 
                             <!-- 聚會影片 -->
-                            @if ((int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態)
-                            {
-                                <hr>
-                                <label class="text-dark">成果發表</label>
-                                <br><br>
-                            }
+                          
+                                @if ((int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態)
+                                {
+                                    <hr>
+                                    <label class="text-dark">成果發表</label>
+                                    <br><br>
+                                }
 
 
-                        </div>
+                            </div>
 
 
                         @if ((int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態)
@@ -392,10 +391,12 @@
 
                                                         <div class="modal-content col-10">
                                                             <div>
+                                                                <br />
                                                                 <img src="~/Image/@參加者.評論.f照片" class='carousel-inner img-responsive img-rounded' data-dismiss='modal'>
                                                                 <div class='text-left'>
                                                                     <br>
                                                                     <a href="~/Member/Show個人頁面/@參加者.參加者資料.f會員Id" class="myfont2 text-dark" style="text-decoration: none"><img src='~/Image/@參加者.參加者資訊.f會員照片' class='rounded-circle' width='30'><span>@參加者.參加者資訊.f會員姓名</span></a>
+                                                                   
                                                                     <p>@參加者.評論.f留言</p>
                                                                     <p class='text-right text-secondary'>
                                                                         @參加者.評論.f評價建立日期
@@ -418,6 +419,7 @@
                                 <!-- 編輯/留言 視窗 -->
                                 @if (Model.Is核准參與 && (int)聚會狀態.已結束 == Model.聚會資訊.f聚會狀態 && !Model.Is成果發表)
                                 {
+                                    <hr />
                                     <form method="post" action="~/Meet/新增評論" enctype="multipart/form-data" class="row" id="myform">
                                         @Html.TextBox("參加者Id", Model.當前會員參加者Id, new { type = "hidden" })
                                         @Html.TextBox("聚會Id", Model.聚會資訊.f聚會Id, new { type = "hidden" })
@@ -446,16 +448,20 @@
                                         </div>
                                         <!-- 留言視窗 結束 -->
                                         <!-- 確認btn -->
-                                        <section class="row mb-3 d-none" id="commit">
-                                            <div class="col-7 ml-3">
-                                                <!-- 有上傳圖片才顯示 -->
-                                                <input type="text" name="留言" class="form-control" placeholder="新增留言..." style="" id="formcommit">
-                                                <span id="errmsg" class="text-danger"></span>
+                                        <div class="col-12">
+                                            <div class="row mb-3 d-none" id="commit">
+                                                <div class="col-12 text-left">
+                                                    <!-- 有上傳圖片才顯示 -->
+                                                    <textarea name="留言" class="form-control" rows="3" placeholder="" style="" id="formcommit"></textarea><span id="errmsg" class="text-danger"></span>
+                                                    @*<input type="text" name="留言" class="form-control" placeholder="新增留言..." style="" id="formcommit">*@
+                                                    
+                                                    <br />
+                                                </div>
+                                                <div class="col-12 text-right">
+                                                    <input class="btn btn-outline-info" type="submit" value="確定上傳">
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <input class="btn btn-outline-info" type="submit" value="確定上傳">
-                                            </div>
-                                        </section>
+                                        </div>
                                         <!-- 確認btn 結束 -->
                                     </form>
                                 }
@@ -464,31 +470,6 @@
 
 
                         <br><br>
-
-
-                        <!--最新聚會開始-->
-                        @*<aside class="col-md-2 positif">
-                    <div class="row ">
-                        <div class="col-12 text-center mb-1">
-                            <p><span class="badge badge-info">New</span>共煮聚會</p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <a href="~/Meet/showParty/@Model.最新聚會[0].f聚會Id"><img class="img_div img-fluid rounded" src="~/Image/@Model.最新聚會[0].f聚會照片" width="150"></a>
-                            <a href="~/Meet/showParty/@Model.最新聚會[0].f聚會Id" class="text-dark"><br>@Model.最新聚會[0].f聚會名稱</a>
-                            <br>
-                        </div>
-
-                        <div class="col-12 text-center ">
-                            <br>
-                            <a href="~/Meet/showParty/@Model.最新聚會[1].f聚會Id"><img class="img_div img-fluid rounded" src="~/Image/@Model.最新聚會[1].f聚會照片" width="150"></a>
-                            <a href="~/Meet/showParty/@Model.最新聚會[1].f聚會Id" class="text-dark"><br>@Model.最新聚會[1].f聚會名稱</a>
-                            <br>
-                        </div>
-
-                    </div>
-                </aside>*@
-                        <!-- 最新聚會結束 -->
-
 
                 </div>
         </div>
@@ -634,17 +615,17 @@
         }
     }
 
-    $("#myform").submit(function () {
-        if ($("#formcommit").val() == "") {
-            $("#errmsg").html("留言不可為空");
+    //$("#myform").submit(function () {
+    //    if ($("#formcommit").val() == "") {
+    //        $("#errmsg").html("請輸入成果內容");
 
-            return false;
-        }
-    });
+    //        return false;
+    //    }
+    //});
 
     $("#createCommitForm").submit(function () {
         if (!$(":input[type='text']", this).val()) {
-            $("span.text-danger", this).html("留言不可為空");
+            $("span.text-danger", this).html("請輸入留言內容");
 
             return false;
         }
