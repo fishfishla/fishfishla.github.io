@@ -53,7 +53,9 @@
             width: 74px;
             border-radius: 50%;
         }
+
     </style>
+  
 </head>
 
 
@@ -106,53 +108,59 @@
     <div class="col-12">
         <div class="row">
     <div class="col-md-6">
+        <img id=obj class="img-fluid" src ="./img/wedding1.jpg"/>
     
-    <div class="carousel slide carousel-fade mt-1" id="myCarousel" data-interval="4000" data-ride="carousel">
-        <!--輪播下方部分隱藏
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-            <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-        </ol>
-        -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <a href="#">
-                    <img src="./img/wedding1.jpg"
-                         class="img-fluid" alt="photo1">
-                </a>
-            </div>
-            <div class="carousel-item">
-                <a href="#">
-                    <img src="./img/wedding2.jpg" class="img-fluid" alt="photo2">
-                </a>
-            </div>
-            <div class="carousel-item">
-                <a href="#">
-                    <img src="./img/wedding3.jpg" class="img-fluid" alt="photo3">
-                </a>
-            </div>
-        </div>
-
-        <a href="#myCarousel" class="carousel-control-prev" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a href="#myCarousel" class="carousel-control-next" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </a>
-    </div>
 </div>
     <!-- end Carousel-->
     <div class="col-md-6">
         <img class="img-fluid mx-auto d-block" style="height:auto;width: 80%;"  src="./img/Invite.jpg">
     </div>
-
+    <div class="col-md-12"><br>
+        <img class="img-fluid mx-auto d-block"  src="./img/info_pic4.jpg">
+        <br>
+    </div>
         </div>
     </div>
-        
+        <div class="col-12">
+            <div class="row">
+                <div class="col-8">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.7751192528635!2d120.28343421394763!3d22.624871336753948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0470a97bfccd%3A0xbdf2cfcf0393771f!2z57-w5ZOB6YWS5bqX!5e0!3m2!1szh-TW!2stw!4v1664525752475!5m2!1szh-TW!2stw" width="570" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="col-4">
+                    <br>
+                    <p>飯店資訊</p>
+                </div>
+            </div>
+           
+        </div>
+    </aside>
+    <aside>
+        <br><br><hr><p class="text-right">2022.09 製作</p>
     </aside>
 
-
-
 </body>
+
+<script language =javascript >
+    var curIndex=0;
+    //時間間隔 單位毫秒
+    var timeInterval=3500;
+    var arr=new Array();
+    arr[0]="./img/wedding1.jpg";
+    arr[1]="./img/wedding2.jpg";
+    arr[2]="./img/wedding3.jpg";
+    setInterval(changeImg,timeInterval);
+    function changeImg()
+    {
+    var obj=document.getElementById("obj");
+    if (curIndex==arr.length-1)
+    {
+    curIndex=0;
+    }
+    else
+    {
+    curIndex+=1;
+    }
+    obj.src=arr[curIndex];
+    }
+    </script>
 </html>
