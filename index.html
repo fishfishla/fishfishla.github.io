@@ -10,24 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <style>
-        .nav-item:hover .hover1{
-            display: block;           
-        }
-        .hover1{
-            display: none;
-            text-align: center;
-            font-family:Arial;
-            font-size: small;
-        }
-        .nav-item:hover .hover2{
-            display: block;           
-        }
-        .hover2{
-            display: none;
-            text-align: center;
-            font-family:Arial;
-            font-size: small;
-        }
+    
         .myfont1 {
             font-family: "Arial";
         }
@@ -37,31 +20,36 @@
             color: black;
         }
 
-        .personalPhoto {
-            height: 31px;
-            width: 31px;
-            border-radius: 50%;
+        .div_img3{
+            opacity: 0.8;
+            filter: blur(0.5px);
         }
-
-        .personalPhoto1 {
-            height: 74px;
-            width: 74px;
-            border-radius: 50%;
+        .div_img3:hover {
+            opacity: 1.0;
+            filter: blur(0px);
+            animation: swing 1s 1;     
+           
         }
-        .googlemap_box{
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
+        .div_img2:hover {
+            animation: swing 1s 1;          
         }
-        .googlemap_box iframe{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 90%;
-            height: 55%;
+        .div_img1{
+            opacity: 0.8;
+            filter: blur(0.5px);
         }
-   
+        .div_img1:hover {
+            opacity: 1.0;
+            filter: blur(0px);
+            animation: swing 1s 1;     
+           
+        }
+        @keyframes swing{
+            15%{transform: translateX(5px);}
+            40%{transform: translateX(-5px);}
+            65%{transform: translateX(2px);}
+            85%{transform: translateX(-2px);}
+            100%{transform: translateX(0px);}
+        }
     </style>
   
 </head>
@@ -87,14 +75,14 @@
     <div class="container myfont2 overflow-hidden">
         <div class="row">
             <div class="col-4">
-                <img style="height:auto;width: 100%;" src="./img/new_boy.jpg">
+                <img class="div_img1" style="height:auto;width: 100%;" src="./img/new_boy.jpg">
                
             </div>
             <div class="col-4">
-                <img style="height:auto;width: 100%;" src="./img/new_all.jpg">
+                <img class="div_img2" style="height:auto;width: 100%;" src="./img/new_all.jpg">
             </div>
             <div class="col-4">
-                <img style="height:auto;width: 100%;" src="./img/new_girl.jpg">
+                <img class="div_img3" style="height:auto;width: 100%;" src="./img/new_girl.jpg">
             </div>
             
             <div class="col-12 text-center">
@@ -105,12 +93,6 @@
                
                 </div>
             
-                      
-           
-
-            
-           
-
         </div>
     </div>
 </div> 
@@ -124,28 +106,4 @@
 <!--頁尾結束-->
 </body>
 
-
-<script language =javascript >
-    var curIndex=0;
-    //時間間隔 單位毫秒
-    var timeInterval=3000;
-    var arr=new Array();
-    arr[0]="./img/wedding1.jpg";
-    arr[1]="./img/wedding2.jpg";
-    arr[2]="./img/wedding3.jpg";
-    setInterval(changeImg,timeInterval);
-    function changeImg()
-    {
-    var obj=document.getElementById("obj");
-    if (curIndex==arr.length-1)
-    {
-    curIndex=0;
-    }
-    else
-    {
-    curIndex+=1;
-    }
-    obj.src=arr[curIndex];
-    }
-    </script>
 </html>
