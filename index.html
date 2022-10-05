@@ -30,8 +30,12 @@
             animation: swing 1s 1;     
            
         }
-        .div_img2:hover {
-            animation: swing 1s 1;          
+        .div_img2_hover img{
+            position:absolute ;
+            transition: opacity 1s ease-in-out;
+        }
+        .div_img2_hover img:nth-of-type(2):hover {
+            opacity: 0;         
         }
         .div_img1{
             opacity: 0.8;
@@ -50,6 +54,21 @@
             85%{transform: translateX(-2px);}
             100%{transform: translateX(0px);}
         }
+        .div_title:hover{
+            transform: scale(1.2);
+        }
+        .div_img2{
+            max-height: 100%;  
+            max-width: 100%; 
+            width: auto;
+            height: auto;
+            position: absolute;  
+            top: 0;  
+            bottom: 0;  
+            left: 0;  
+            right: 0;  
+            margin: auto;
+        }
     </style>
   
 </head>
@@ -62,7 +81,7 @@
             <div class="col-md-12">
                 <ul class="nav d-flex justify-content-center">
                     <!-- active+class會讓btn變灰色 -->                 
-                        <a href="index.html" style="text-decoration:none;" class="text-dark"><img class="img-fluid mx-auto d-block" style="height:auto;width: 50%;" src="./img/title.jpg"></a>                                     
+                        <a href="index.html" style="text-decoration:none;" class="text-dark"><img class="div_title mx-auto d-block" style="height:auto;width: 50%;" src="./img/title.jpg"></a>                                     
                 </ul>
             </div>
             
@@ -78,8 +97,9 @@
                 <img class="div_img1" style="height:auto;width: 100%;" src="./img/new_boy.jpg">
                
             </div>
-            <div class="col-4">
-                <img class="div_img2" style="height:auto;width: 100%;" src="./img/new_all.jpg">
+            <div class="col-4 div_img2_hover">
+                <img class="div_img2"  src="./img/new_allhover.jpg">
+                <img class="div_img2"  src="./img/new_all.jpg">
             </div>
             <div class="col-4">
                 <img class="div_img3" style="height:auto;width: 100%;" src="./img/new_girl.jpg">
