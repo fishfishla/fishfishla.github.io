@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link href="img/favicon.ico" rel="shortcut icon" />
-    <title>Our Wedding (wei-li & yi)</title>
+    <title>來呷囍酒 (利 & 怡)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -66,6 +66,33 @@
             right: 0;  
             margin: auto;
         }
+        #clockdiv{ 
+    font-family: sans-serif; 
+    color: #ddac9d; 
+    display: inline-block; 
+    font-weight: 100; 
+    text-align: center; 
+    font-size: 30px; 
+} 
+ 
+#clockdiv > div{ 
+    padding: 5px; 
+    border-radius: 3px; 
+    background:#790e1b; 
+    display: inline-block; 
+} 
+ 
+#clockdiv div > span{ 
+    padding: 10px; 
+    border-radius: 3px; 
+    background: #2c2935; 
+    display: inline-block; 
+} 
+ 
+.smalltext{ 
+    padding-top: 2px; 
+    font-size: 14px; 
+} 
     </style>
   
 </head>
@@ -77,50 +104,77 @@
         
             <div class="col-12 py-2">
                 <div class="row">              
-            <section class="col-8">               
+            <section class="col-xl-8 col-md-12 col-sm-12 text-center">               
                     <!-- active+class會讓btn變灰色 -->                 
                         <a href="index.html" style="text-decoration:none;" class="text-dark"><img class="div_title mx-auto d-block" style="height:auto;width: 50%;" src="./img/title.jpg"></a>                                     
                
             </section>
              <!--倒數計時器-->
-            <section class="col-4 text-left">
-                <h4><br>距離婚禮還有
-                    <div id="leftTime"></div></h4>
-                    <script>
-                        // 預計時間
-                        var expectTime = "2022-12-17 12:00:00"
-                        var nowTime = +new Date() //當前時間總的毫秒數
-                        var inputTime = +new Date(expectTime) //使用者輸入時間總的毫秒數
-                        var times = (inputTime - nowTime) / 1000 //times是剩餘時間總的毫秒數
-                    
-                        var timer = setInterval(function () {
-                          times--
-                          var d = (d = parseInt(times / 60 / 60 / 24))
-                          d = d < 10 ? "0" + d : d
-                          var h = parseInt((times / 60 / 60) % 24)
-                          h = h < 10 ? "0" + h : h
-                          var m = parseInt((times / 60) % 60)
-                          m = m < 10 ? "0" + m : m
-                          var s = parseInt(times % 60)
-                    
-                          if (s > 0) {
-                            s = s < 10 ? "0" + s : s
-                            var countdown = d + "天" + h + "時" + m + "分" + s + "秒"
-                            document.getElementById("leftTime").innerHTML = countdown
-                          }
-                          if (s == 0) {
-                            console.log("結束了0s")
-                            var countdown = "00天00時00分00秒"
-                            document.getElementById("leftTime").innerHTML = countdown
-                            clearInterval(timer)
-                          }
-                          if (s < 0) {
-                            var countdown = "00天00時00分00秒"
-                            document.getElementById("leftTime").innerHTML = countdown
-                            clearInterval(timer)
-                          }
-                        }, 1000)
-                      </script>
+            <section class="container col-xl-4 col-md-12 col-sm-12 text-center">
+                <br>
+                <div  id="clockdiv"> 
+                    <div> 
+                      <span class="days"></span> 
+                      <div class="smalltext">Days</div> 
+                    </div> 
+                    <div> 
+                      <span class="hours"></span> 
+                      <div class="smalltext">Hours</div> 
+                    </div> 
+                    <div> 
+                      <span class="minutes"></span> 
+                      <div class="smalltext">Minutes</div> 
+                    </div> 
+                    <div> 
+                      <span class="seconds"></span> 
+                      <div class="smalltext">Seconds</div> 
+                    </div> 
+                  </div> 
+                  <script type="text/javascript"> 
+                      const deadline = 'December 17 2022 12:00:00 GMT+0200'; 
+                    function getTimeRemaining(endtime) { 
+                    const total = Date.parse(endtime) - Date.parse(new Date()); 
+                    const seconds = Math.floor((total / 1000) % 60); 
+                    const minutes = Math.floor((total / 1000 / 60) % 60); 
+                    const hours = Math.floor((total / (1000 * 60 * 60)) % 24); 
+                    const days = Math.floor(total / (1000 * 60 * 60 * 24)); 
+                     
+                    return { 
+                      total, 
+                      days, 
+                      hours, 
+                      minutes, 
+                      seconds 
+                    }; 
+                  } 
+                   
+                  function initializeClock(id, endtime) { 
+                    const clock = document.getElementById(id); 
+                    const daysSpan = clock.querySelector('.days'); 
+                    const hoursSpan = clock.querySelector('.hours'); 
+                    const minutesSpan = clock.querySelector('.minutes'); 
+                    const secondsSpan = clock.querySelector('.seconds'); 
+                   
+                    function updateClock() { 
+                      const t = getTimeRemaining(endtime); 
+                   
+                      daysSpan.innerHTML = t.days; 
+                      hoursSpan.innerHTML = ('0' + t.hours).slice(-2); 
+                      minutesSpan.innerHTML = ('0' + t.minutes).slice(-2); 
+                      secondsSpan.innerHTML = ('0' + t.seconds).slice(-2); 
+                   
+                      if (t.total <= 0) { 
+                        clearInterval(timeinterval); 
+                      } 
+                    } 
+                   
+                    updateClock(); 
+                    const timeinterval = setInterval(updateClock, 1000); 
+                  } 
+                   
+                  
+                  initializeClock('clockdiv', deadline); 
+                  </script> 
             </section>
              <!--倒數計時器-->
             </div>
