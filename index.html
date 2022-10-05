@@ -72,7 +72,7 @@
     display: inline-block; 
     font-weight: 100; 
     text-align: center; 
-    font-size: 30px; 
+    font-size: 25px; 
 } 
  
 #clockdiv > div{ 
@@ -90,9 +90,14 @@
 } 
  
 .smalltext{ 
-    padding-top: 2px; 
+    padding-top: 1px; 
     font-size: 14px; 
 } 
+.topword{ 
+    padding-top: 0px; 
+    padding-bottom: 0px; 
+    font-size: 14px; 
+}
     </style>
   
 </head>
@@ -102,31 +107,32 @@
 <div id="header"> 
     <aside>
         
-            <div class="col-12 py-2">
-                <div class="row">              
-            <section class="col-xl-8 col-md-12 col-sm-12 text-center">               
-                    <!-- active+class會讓btn變灰色 -->                 
-                        <a href="index.html" style="text-decoration:none;" class="text-dark"><img class="div_title mx-auto d-block" style="height:auto;width: 50%;" src="./img/title.jpg"></a>                                     
-               
-            </section>
-             <!--倒數計時器-->
-            <section class="container col-xl-4 col-md-12 col-sm-12 text-center">
+            <div class="col-12 ">
+                <div class="row">    
+            <!--倒數計時器-->
+            <section class="container col-12 text-center">
                 <br>
+               
                 <div  id="clockdiv"> 
+                    
                     <div> 
-                      <span class="days"></span> 
-                      <div class="smalltext">Days</div> 
+                        <div class="topword"><h5>距</h5></div>
+                        <span class="days"></span> 
+                        <div class="smalltext">Days</div> 
                     </div> 
                     <div> 
-                      <span class="hours"></span> 
-                      <div class="smalltext">Hours</div> 
+                        <div class="topword"><h5>離</h5></div>
+                        <span class="hours"></span> 
+                        <div class="smalltext">Hours</div> 
                     </div> 
                     <div> 
-                      <span class="minutes"></span> 
-                      <div class="smalltext">Minutes</div> 
+                        <div class="topword"><h5>婚</h5></div>
+                        <span class="minutes"></span> 
+                        <div class="smalltext">Minutes</div> 
                     </div> 
                     <div> 
-                      <span class="seconds"></span> 
+                        <div class="topword"><h5>禮:</h5></div>
+                        <span class="seconds"></span> 
                       <div class="smalltext">Seconds</div> 
                     </div> 
                   </div> 
@@ -176,6 +182,12 @@
                   initializeClock('clockdiv', deadline); 
                   </script> 
             </section>
+             <!--倒數計時器-->          
+            <section class="col-12 text-center">               
+                    <!-- active+class會讓btn變灰色 -->                 
+                        <a href="index.html" style="text-decoration:none;" class="text-dark"><img class="div_title mx-auto d-block" style="height:auto;width: 50%;" src="./img/title.jpg"></a>                                     
+               
+            </section>
              <!--倒數計時器-->
             </div>
         </div>
@@ -199,6 +211,7 @@
                 <img class="div_img3" style="height:auto;width: 100%;" src="./img/new_girl.jpg">
             </div>
             <!--時間-->
+            
             <div class="col-12 text-center">
                 <img style="height:auto;width: 100%;" src="./img/wedding_time.jpg">
             </div>
