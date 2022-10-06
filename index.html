@@ -119,9 +119,7 @@
             max-width: 100%; 
             width: auto;
             height: auto;
-            position:relative; 
         }
- 
         @keyframes swing{
             15%{transform: translateX(5px);}
             40%{transform: translateX(-5px);}
@@ -242,23 +240,31 @@
 <!--頁首結束-->
 <!-- 網站內容 -->
 <div id="content"> 
-    <div class="container myfont2 overflow-hidden">
-        <div class="row">
-            <div class="col-4 div_img1_hover">
-                <img class="div_img1" src="./img/new_boy.jpg">           
+    <div class="container myfont2">
+        <div class="row">           
+            <div class="col-4">
+                <img name="div_img1" class="div_img1" src="./img/new_boy.jpg" onmouseover="mouseOver()" onmouseout="mouseOut()">           
             </div>
+            <script>
+               function mouseOver()
+                {
+                document.div_img1.src="./img/new_boy2.jpg"
+                document.div_img2.src="./img/new_girl2.jpg"
+                }
+                function mouseOut(){
+                document.div_img1.src="./img/new_boy.jpg"
+                document.div_img2.src="./img/new_girl.jpg"
+                }
+            </script>
             <div class="col-4 div_img2_hover">
                 <img class="div_img2"  src="./img/new_allhover.jpg">
                 <img class="div_img2"  src="./img/new_all.jpg">
             </div>
             <div class="col-4 div_img2_hover">
-                <img class="div_img2"  src="./img/new_girl2.jpg">
-                <img class="div_img2" src="./img/new_girl.jpg">
+                <img name="div_img2" class="div_img2" src="./img/new_girl.jpg" onmouseover="mouseOver()" onmouseout="mouseOut()">
             </div>
-            <!--時間-->
-            
             <div class="col-12 text-center">
-                <img style="height:auto;width: 100%;" src="./img/wedding_time.jpg">
+                <img class="div_img1" src="./img/wedding_time.jpg">
             </div>
             <!--時間結束-->
             <!--地點-->
@@ -266,6 +272,7 @@
                 <a href="https://g.co/kgs/jVqR3S" class="btn btn-secondary btn-sm" tabindex="-1" role="button" aria-disabled="true">google地圖 點我</a>             
             </div>
             <!--地點結束-->
+            <div class="col-6"></div>
          </div>
             
     </div>
