@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link href="img/favicon.ico" rel="shortcut icon" />
+    <link href="./img/icon/favicon.ico" rel="shortcut icon" type="image/ico" />
     <title>來呷囍酒 (利 & 怡)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -113,14 +113,15 @@
             animation: swing 1s 1;    
             opacity: 0;         
         }
+      
         .div_img1{
-            opacity: 0.8;
+            max-height: 100%;  
+            max-width: 100%; 
+            width: auto;
+            height: auto;
+            position:relative; 
         }
-        .div_img1:hover {
-            opacity: 1.0;
-            animation: swing 1s 1;     
-           
-        }
+ 
         @keyframes swing{
             15%{transform: translateX(5px);}
             40%{transform: translateX(-5px);}
@@ -243,16 +244,16 @@
 <div id="content"> 
     <div class="container myfont2 overflow-hidden">
         <div class="row">
-            <div class="col-4">
-                <img class="div_img1" style="height:auto;width: 100%;" src="./img/new_boy.jpg">
-               
+            <div class="col-4 div_img1_hover">
+                <img class="div_img1" src="./img/new_boy.jpg">           
             </div>
             <div class="col-4 div_img2_hover">
                 <img class="div_img2"  src="./img/new_allhover.jpg">
                 <img class="div_img2"  src="./img/new_all.jpg">
             </div>
-            <div class="col-4">
-                <img class="div_img3" style="height:auto;width: 100%;" src="./img/new_girl.jpg">
+            <div class="col-4 div_img2_hover">
+                <img class="div_img2"  src="./img/new_girl2.jpg">
+                <img class="div_img2" src="./img/new_girl.jpg">
             </div>
             <!--時間-->
             
